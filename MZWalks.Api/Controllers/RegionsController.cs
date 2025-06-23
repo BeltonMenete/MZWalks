@@ -40,8 +40,8 @@ public class RegionsController(Database database) : ControllerBase
     {
         var region = database.Regions.Find(id);
         if (region is null) return NotFound();
-        var updated = request.MapToRegion(id);
-        database.Regions.Update(updated);
+        region.MapToRegion(request);
+        database.Regions.Update(region);
         database.SaveChanges();
         return NoContent();
     }
