@@ -2,9 +2,9 @@
 
 public class Region
 {
-    public Guid Id { get; set; }
-    public string Code { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public string? RegionImageURL { get; set; }
+    public required Guid Id { get; set; }
+    public required string Code { get; set; }
+    public required string Name { get; set; } 
+    public required string RegionImageURL { get; set; }
 
 }
