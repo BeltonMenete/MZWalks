@@ -16,10 +16,22 @@ public static class RegionsMapping
             RegionImageURL = request.RegionImageURL
         };
     }
+
+    public static Region MapToRegion(this UpdateRegionRequest request, Guid id)
+    {
+        return new Region()
+        {
+            Id = id,
+            Code = request.Code,
+            Name = request.Name,
+            RegionImageURL = request.RegionImageURL
+        };
+    }
+
     public static RegionResponse MapToResponse(this Region region)
     {
         return new RegionResponse()
-        {   
+        {
             Id = region.Id,
             Code = region.Code,
             Name = region.Name,
