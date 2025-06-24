@@ -17,7 +17,7 @@ public static class RegionsMapping
         };
     }
 
-    public static Region MapToRegion(this Region region, UpdateRegionRequest request)
+    public static Region MapUpdate(this Region region, UpdateRegionRequest request)
     {
         region.Code = request.Code;
         region.Name = request.Name;

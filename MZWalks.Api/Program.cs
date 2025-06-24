@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MZWalks.Api.Data;
+using MZWalks.Api.Models.Domain;
+using MZWalks.Api.Repositories;
 using Scalar.AspNetCore;
 
 // MZ Walks
@@ -9,6 +11,7 @@ var connString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<Database>(options => options.UseSqlServer(connString));
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
