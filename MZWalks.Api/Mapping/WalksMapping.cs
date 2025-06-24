@@ -19,7 +19,16 @@ public static class WalksMapping
             RegionId = request.RegionId 
         };
     }
-
+    public static Walk MapUpdate(this Walk walk, UpdateWalkRequest request)
+    {
+        walk.Name = request.Name;
+        walk.Description = request.Description;
+        walk.LengthInKm = request.LengthInKm;
+        walk.WalkImageURl = request.WalkImageURl;
+        walk.DifficultyId = request.DifficultyId;
+        walk.RegionId = request.RegionId;
+        return walk;
+    }
     public static WalkResponse MapToResponse(this Walk walk)
     {
         return new WalkResponse()

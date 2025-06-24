@@ -37,7 +37,27 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
         var result = await walkRepository.CreateAsync(walk);
         if (result is not null)
             return BadRequest(result);
-        
+
         return CreatedAtAction(nameof(Get), new { id = walk.Id }, walk.MapToResponse());
+    }
+
+    [HttpPut(ApiEndpoints.Walks.Update)]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateWalkRequest request)
+    {
+        var walk = await walkRepository.GetById(id);
+        if (walk is null) return NotFound("Walk Not Found");
+        walk.MapUpdate(request);
+        var result = await walkRepository.UpdateAsync(walk);
+        if (result is not null) return BadRequest(result);
+        return Ok(walk.MapToResponse());
+    }
+
+    [HttpDelete(ApiEndpoints.Walks.Delete)]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    {
+        var walk = await walkRepository.GetById(id);
+        if (walk is null) return NotFound();
+        await walkRepository.DeleteAsync(walk);
+        return NoContent();
     }
 }
