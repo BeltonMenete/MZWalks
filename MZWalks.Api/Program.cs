@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MZWalks.Api.Data;
-using MZWalks.Api.Models.Domain;
 using MZWalks.Api.Repositories;
 using Scalar.AspNetCore;
 
@@ -19,7 +18,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options => options
+        .WithTheme(ScalarTheme.BluePlanet)
+        .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
+    );
 }
 
 //app.UseHttpsRedirection();

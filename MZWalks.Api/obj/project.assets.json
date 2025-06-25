@@ -1013,7 +1013,7 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
-      "Scalar.AspNetCore/2.4.22": {
+      "Scalar.AspNetCore/2.5.0": {
         "type": "package",
         "compile": {
           "lib/net9.0/Scalar.AspNetCore.dll": {
@@ -3595,10 +3595,10 @@
         "readme.md"
       ]
     },
-    "Scalar.AspNetCore/2.4.22": {
-      "sha512": "QF3HHalytSzazQtGj85KEPxkQmqRJLuvqdvSSVnedi1gyByS71Hnq4IBtyp430oDtnNvUI6kDtvxIi72oR0vkQ==",
+    "Scalar.AspNetCore/2.5.0": {
+      "sha512": "00TuSCPxDqzLeMqx1HfKoxBAdXKP5YMk4bV/W4z4/Hm/345BkkyK1dsz1C7RLEolbtudG4fOBTUrnXJJZHVUVw==",
       "type": "package",
-      "path": "scalar.aspnetcore/2.4.22",
+      "path": "scalar.aspnetcore/2.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3608,7 +3608,7 @@
         "lib/net8.0/Scalar.AspNetCore.xml",
         "lib/net9.0/Scalar.AspNetCore.dll",
         "lib/net9.0/Scalar.AspNetCore.xml",
-        "scalar.aspnetcore.2.4.22.nupkg.sha512",
+        "scalar.aspnetcore.2.5.0.nupkg.sha512",
         "scalar.aspnetcore.nuspec"
       ]
     },
@@ -4804,7 +4804,7 @@
       "Microsoft.AspNetCore.OpenApi >= 9.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.6",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.6",
-      "Scalar.AspNetCore >= 2.4.22"
+      "Scalar.AspNetCore >= 2.5.0"
     ]
   },
   "packageFolders": {
@@ -4866,7 +4866,7 @@
           },
           "Scalar.AspNetCore": {
             "target": "Package",
-            "version": "[2.4.22, )"
+            "version": "[2.5.0, )"
           }
         },
         "imports": [

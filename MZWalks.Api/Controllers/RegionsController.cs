@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MZWalks.Api.Contracts.Requests;
-using MZWalks.Api.Data;
 using MZWalks.Api.Mapping;
-using MZWalks.Api.Models.Domain;
 using MZWalks.Api.Repositories;
+
 
 namespace MZWalks.Api.Controllers;
 
@@ -31,6 +29,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [HttpPost(ApiEndpoints.Regions.Create)]
     public async Task<IActionResult> Create([FromBody] CreateRegionRequest request)
     {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
         var region = request.MapToRegion();
         await regionRepository.CreateAsync(region);
         return CreatedAtAction(nameof(Get), new { id = region.Id }, region.MapToResponse());
@@ -39,6 +38,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [HttpPut(ApiEndpoints.Regions.Update)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequest request)
     {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
         var region = await regionRepository.GetById(id);
         if (region is null) return NotFound();
         region.MapUpdate(request);

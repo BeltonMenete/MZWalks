@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "aMCU0FVP4dA=",
+  "dgSpecHash": "OT9Uh/t6A3E=",
   "success": true,
   "projectFilePath": "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\MZWalks.Api\\MZWalks.Api.csproj",
   "expectedPackageFiles": [
@@ -51,7 +51,7 @@
     "C:\\Users\\Belton Menete\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Belton Menete\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Belton Menete\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
-    "C:\\Users\\Belton Menete\\.nuget\\packages\\scalar.aspnetcore\\2.4.22\\scalar.aspnetcore.2.4.22.nupkg.sha512",
+    "C:\\Users\\Belton Menete\\.nuget\\packages\\scalar.aspnetcore\\2.5.0\\scalar.aspnetcore.2.5.0.nupkg.sha512",
     "C:\\Users\\Belton Menete\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\Belton Menete\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\Belton Menete\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",

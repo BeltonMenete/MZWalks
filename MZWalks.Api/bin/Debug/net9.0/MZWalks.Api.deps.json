@@ -11,7 +11,7 @@
           "Microsoft.AspNetCore.OpenApi": "9.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.6",
-          "Scalar.AspNetCore": "2.4.22"
+          "Scalar.AspNetCore": "2.5.0"
         },
         "runtime": {
           "MZWalks.Api.dll": {}
@@ -758,11 +758,11 @@
           }
         }
       },
-      "Scalar.AspNetCore/2.4.22": {
+      "Scalar.AspNetCore/2.5.0": {
         "runtime": {
           "lib/net9.0/Scalar.AspNetCore.dll": {
-            "assemblyVersion": "2.4.22.0",
-            "fileVersion": "2.4.22.0"
+            "assemblyVersion": "2.5.0.0",
+            "fileVersion": "2.5.0.0"
           }
         }
       },
@@ -1359,12 +1359,12 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
-    "Scalar.AspNetCore/2.4.22": {
+    "Scalar.AspNetCore/2.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QF3HHalytSzazQtGj85KEPxkQmqRJLuvqdvSSVnedi1gyByS71Hnq4IBtyp430oDtnNvUI6kDtvxIi72oR0vkQ==",
-      "path": "scalar.aspnetcore/2.4.22",
-      "hashPath": "scalar.aspnetcore.2.4.22.nupkg.sha512"
+      "sha512": "sha512-00TuSCPxDqzLeMqx1HfKoxBAdXKP5YMk4bV/W4z4/Hm/345BkkyK1dsz1C7RLEolbtudG4fOBTUrnXJJZHVUVw==",
+      "path": "scalar.aspnetcore/2.5.0",
+      "hashPath": "scalar.aspnetcore.2.5.0.nupkg.sha512"
     },
     "System.ClientModel/1.0.0": {
       "type": "package",

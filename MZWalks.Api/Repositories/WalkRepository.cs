@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MZWalks.Api.Data;
-using MZWalks.Api.Mapping;
 using MZWalks.Api.Models.Domain;
 
 namespace MZWalks.Api.Repositories;
@@ -11,8 +10,8 @@ public class WalkRepository(Database database) : IWalkRepository
     {
         return await database
             .Walks
-            .Include((w) => w.Difficulty.MapToResponse())
-            .Include((w) => w.Region.MapToResponse())
+            .Include(w => w.Difficulty)
+            .Include((w) => w.Region)
             .ToListAsync();
     }
 
@@ -23,12 +22,7 @@ public class WalkRepository(Database database) : IWalkRepository
 
     public async Task<string?> CreateAsync(Walk walk)
     {
-        if (!await database.Difficulties.AnyAsync((d) => d.Id == walk.DifficultyId))
-            return "Difficulty does  not exist";
-        if (!await database.Regions.AnyAsync((r) => r.Id == walk.RegionId))
-            return "region does  not exist";
-
-
+  
         await database.Walks.AddAsync(walk);
         await database.SaveChangesAsync();
         return null;
@@ -36,12 +30,6 @@ public class WalkRepository(Database database) : IWalkRepository
 
     public async Task<string?> UpdateAsync(Walk walk)
     {
-        if (walk == null) return "Walk is required";
-        if (!await database.Difficulties.AnyAsync(d => d.Id == walk.DifficultyId))
-            return "Invalid difficulty";
-        if (!await database.Regions.AnyAsync(r => r.Id == walk.RegionId))
-            return "Invalid region";
-
         database.Walks.Update(walk);
         await database.SaveChangesAsync();
         return null;
