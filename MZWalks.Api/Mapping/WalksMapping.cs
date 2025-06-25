@@ -10,15 +10,16 @@ public static class WalksMapping
     {
         return new Walk()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.CreateVersion7(),
             Name = request.Name,
             Description = request.Description,
             LengthInKm = request.LengthInKm,
             WalkImageURl = request.WalkImageURl,
             DifficultyId = request.DifficultyId,
-            RegionId = request.RegionId 
+            RegionId = request.RegionId
         };
     }
+
     public static Walk MapUpdate(this Walk walk, UpdateWalkRequest request)
     {
         walk.Name = request.Name;
@@ -29,6 +30,7 @@ public static class WalksMapping
         walk.RegionId = request.RegionId;
         return walk;
     }
+
     public static WalkResponse MapToResponse(this Walk walk)
     {
         return new WalkResponse()
@@ -38,8 +40,8 @@ public static class WalksMapping
             Description = walk.Description,
             LengthInKm = walk.LengthInKm,
             WalkImageURl = walk.WalkImageURl,
-            DifficultyId = walk.DifficultyId,
-            RegionId = walk.RegionId
+            Difficulty = walk.Difficulty,
+            Region = walk.Region
         };
     }
 }

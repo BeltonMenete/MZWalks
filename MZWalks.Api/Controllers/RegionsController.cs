@@ -16,9 +16,6 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     {
         var regions = await regionRepository.GetAllAsync();
         var response = regions.Select((region) => region.MapToResponse());
-        Console.WriteLine("-------");
-        Console.WriteLine(Guid.CreateVersion7());
-        Console.WriteLine($"--------");
         return Ok(response);
     }
 

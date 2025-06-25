@@ -10,7 +10,7 @@ public static class RegionsMapping
     {
         return new Region()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.CreateVersion7(),
             Code = request.Code,
             Name = request.Name,
             RegionImageURL = request.RegionImageURL
