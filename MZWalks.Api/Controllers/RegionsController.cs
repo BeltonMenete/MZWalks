@@ -2,6 +2,7 @@
 using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
+using MZWalks.Api.Validators;
 
 
 namespace MZWalks.Api.Controllers;
@@ -27,18 +28,18 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     }
 
     [HttpPost(ApiEndpoints.Regions.Create)]
+    [ValidateModel]
     public async Task<IActionResult> Create([FromBody] CreateRegionRequest request)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
         var region = request.MapToRegion();
         await regionRepository.CreateAsync(region);
         return CreatedAtAction(nameof(Get), new { id = region.Id }, region.MapToResponse());
     }
 
     [HttpPut(ApiEndpoints.Regions.Update)]
+    [ValidateModel]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequest request)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
         var region = await regionRepository.GetById(id);
         if (region is null) return NotFound();
         region.MapUpdate(request);

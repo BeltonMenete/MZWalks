@@ -2,6 +2,7 @@
 using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
+using MZWalks.Api.Validators;
 
 
 namespace MZWalks.Api.Controllers;
@@ -29,9 +30,9 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     }
 
     [HttpPost(ApiEndpoints.Walks.Create)]
+    [ValidateModel]
     public async Task<IActionResult> Create([FromBody] CreateWalkRequest request)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
         var walk = request.MapToWalk();
         var result = await walkRepository.CreateAsync(walk);
         if (result is not null)
@@ -41,9 +42,9 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     }
 
     [HttpPut(ApiEndpoints.Walks.Update)]
+    [ValidateModel]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateWalkRequest request)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
         var walk = await walkRepository.GetById(id);
         if (walk is null) return NotFound("Walk Not Found");
         walk.MapUpdate(request);
