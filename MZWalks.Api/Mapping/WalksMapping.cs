@@ -15,8 +15,8 @@ public static class WalksMapping
             Description = request.Description,
             LengthInKm = request.LengthInKm,
             WalkImageURl = request.WalkImageURl,
-            DifficultyId = request.DifficultyId,
-            RegionId = request.RegionId
+            //DifficultyId = request.DifficultyId,
+            //RegionId = request.RegionId
         };
     }
 

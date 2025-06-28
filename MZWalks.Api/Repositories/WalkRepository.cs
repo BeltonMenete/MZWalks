@@ -17,7 +17,7 @@ public class WalkRepository(Database database) : IWalkRepository
 
     public async Task<Walk?> GetById(Guid id)
     {
-        return await database.Walks.FindAsync(id);
+        return await database.Walks.FirstOrDefaultAsync((w)=> w.Id == id);
     }
 
     public async Task<string?> CreateAsync(Walk walk)

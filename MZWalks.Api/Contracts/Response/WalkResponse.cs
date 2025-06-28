@@ -15,6 +15,6 @@ public class WalkResponse
 
     // nav props
     // Include the data in the response
-    public Difficulty Difficulty { get; set; }
-    public RegionResponse Region { get; set; }
+    public Difficulty? Difficulty { get; set; }
+    public RegionResponse? Region { get; set; }
 }
