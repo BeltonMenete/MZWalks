@@ -6,23 +6,30 @@ namespace MZWalks.Api.Repositories;
 
 public class WalkRepository(Database database) : IWalkRepository
 {
-    public async Task<List<Walk>> GetAllAsync()
+    public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
     {
-        return await database
+        var walks = database
             .Walks
             .Include(w => w.Difficulty)
             .Include((w) => w.Region)
-            .ToListAsync();
+            .AsQueryable();
+        if (string.IsNullOrEmpty(filterOn) && string.IsNullOrWhiteSpace(filterQuery)) return await walks.ToListAsync();
+
+        if (filterOn.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+        {
+            walks = walks.Where((w) => w.Name.Contains(filterQuery));
+        }
+        
+        return await walks.ToListAsync();
     }
 
     public async Task<Walk?> GetById(Guid id)
     {
-        return await database.Walks.FirstOrDefaultAsync((w)=> w.Id == id);
+        return await database.Walks.FirstOrDefaultAsync((w) => w.Id == id);
     }
 
     public async Task<string?> CreateAsync(Walk walk)
     {
-  
         await database.Walks.AddAsync(walk);
         await database.SaveChangesAsync();
         return null;
