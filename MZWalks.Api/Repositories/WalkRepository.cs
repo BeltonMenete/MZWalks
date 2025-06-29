@@ -6,7 +6,8 @@ namespace MZWalks.Api.Repositories;
 
 public class WalkRepository(Database database) : IWalkRepository
 {
-    public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
+    public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
+        string? sortBy = null, bool isAscending = true)
     {
         var walks = database
             .Walks
@@ -19,7 +20,12 @@ public class WalkRepository(Database database) : IWalkRepository
         {
             walks = walks.Where((w) => w.Name.Contains(filterQuery));
         }
-        
+
+        if (string.IsNullOrEmpty(sortBy)) return await walks.ToListAsync();
+        if (sortBy.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+        {
+            walks = isAscending ? database.Walks.OrderBy((w) => w.Name) : database.Walks.OrderByDescending(w => w.Name);
+        }
         return await walks.ToListAsync();
     }
 

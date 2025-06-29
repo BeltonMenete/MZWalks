@@ -12,7 +12,8 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
 {
     // GET
     [HttpGet(ApiEndpoints.Walks.GetAll)]
-    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
+    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+        [FromQuery] string? sortBy, [FromQuery] bool? isAscending)
     {
         var walks = await walkRepository.GetAllAsync(filterOn, filterQuery);
         var response = walks.Select((walk) => walk.MapToResponse());
