@@ -13,6 +13,7 @@ public static class ApiEndpoints
         public const string Update = $"{Base}/{{id:Guid}}";
         public const string Delete = $"{Base}/{{id:Guid}}";
     }
+
     public static class Regions
     {
         private const string Base = $"{ApiBase}/regions";

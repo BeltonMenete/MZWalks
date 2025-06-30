@@ -7,7 +7,7 @@ public class Walk
     public required string Description { get; set; }
     public required double LengthInKm { get; set; }
     public required string WalkImageURl { get; set; }
-    public byte[] DifficultyId { get; set; }
+    public Guid DifficultyId { get; set; }
     public Guid RegionId { get; set; }
 
     // Navigation properties

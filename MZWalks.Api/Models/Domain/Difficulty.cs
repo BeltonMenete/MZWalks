@@ -2,6 +2,6 @@
 
 public class Difficulty
 {
-    public required byte[] Id { get; set; }
+    public required Guid Id { get; set; }
     public string Name { get; set; }
 }
