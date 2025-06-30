@@ -1,4 +1,5 @@
-﻿using MZWalks.Api.Contracts.Requests;
+﻿using ByteAether.Ulid;
+using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Contracts.Response;
 using MZWalks.Api.Models.Domain;
 
@@ -10,7 +11,7 @@ public static class RegionsMapping
     {
         return new Region()
         {
-            Id = Guid.CreateVersion7(),
+            Id = Ulid.New().ToGuid(),
             Code = request.Code,
             Name = request.Name,
             RegionImageURL = request.RegionImageURL
@@ -29,7 +30,7 @@ public static class RegionsMapping
     {
         return new RegionResponse()
         {
-            Id = region.Id,
+            Id = Ulid.New(region.Id).ToString(),
             Code = region.Code,
             Name = region.Name,
             RegionImageURL = region.RegionImageURL

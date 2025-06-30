@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ByteAether.Ulid;
+using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
@@ -21,9 +22,9 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
 
     // Get by id
     [HttpGet(ApiEndpoints.Walks.Get)]
-    public async Task<ActionResult> Get([FromRoute] Guid id)
+    public async Task<ActionResult> Get([FromRoute] string id)
     {
-        var walk = await walkRepository.GetById(id);
+        var walk = await walkRepository.GetById(Ulid.Parse(id).ToGuid());
         if (walk is null) return NotFound();
         var response = walk.MapToResponse();
         return Ok(response);
@@ -43,9 +44,9 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
 
     [HttpPut(ApiEndpoints.Walks.Update)]
     [ValidateModel]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateWalkRequest request)
+    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateWalkRequest request)
     {
-        var walk = await walkRepository.GetById(id);
+        var walk = await walkRepository.GetById(Ulid.Parse(id).ToGuid());
         if (walk is null) return NotFound("Walk Not Found");
         walk.MapUpdate(request);
         var result = await walkRepository.UpdateAsync(walk);
@@ -54,9 +55,9 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     }
 
     [HttpDelete(ApiEndpoints.Walks.Delete)]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    public async Task<IActionResult> Delete([FromRoute] string id)
     {
-        var walk = await walkRepository.GetById(id);
+        var walk = await walkRepository.GetById(Ulid.Parse(id).ToGuid());
         if (walk is null) return NotFound();
         await walkRepository.DeleteAsync(walk);
         return NoContent();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ByteAether.Ulid;
+using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
@@ -19,9 +20,9 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     }
 
     [HttpGet(ApiEndpoints.Regions.Get)]
-    public async Task<IActionResult> Get([FromRoute] Guid id)
+    public async Task<IActionResult> Get([FromRoute] string id)
     {
-        var region = await regionRepository.GetById(id);
+        var region = await regionRepository.GetById(Ulid.Parse(id).ToGuid());
         if (region is null) return NotFound();
         var response = region.MapToResponse();
         return Ok(response);
@@ -38,9 +39,9 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
 
     [HttpPut(ApiEndpoints.Regions.Update)]
     [ValidateModel]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequest request)
+    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateRegionRequest request)
     {
-        var region = await regionRepository.GetById(id);
+        var region = await regionRepository.GetById(Ulid.Parse(id).ToGuid());
         if (region is null) return NotFound();
         region.MapUpdate(request);
         await regionRepository.UpdateAsync(region);
@@ -48,9 +49,9 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     }
 
     [HttpDelete(ApiEndpoints.Regions.Delete)]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    public async Task<IActionResult> Delete([FromRoute] string id)
     {
-        var region = await regionRepository.GetById(id);
+        var region = await regionRepository.GetById(Ulid.Parse(id).ToGuid());
         if (region is null) return NotFound();
         await regionRepository.DeleteAsync(region);
         return NoContent();

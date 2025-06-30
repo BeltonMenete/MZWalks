@@ -1,4 +1,5 @@
-﻿using MZWalks.Api.Contracts.Requests;
+﻿using ByteAether.Ulid;
+using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Contracts.Response;
 using MZWalks.Api.Models.Domain;
 
@@ -10,7 +11,7 @@ public static class WalksMapping
     {
         return new Walk()
         {
-            Id = Guid.CreateVersion7(),
+            Id = Ulid.New().ToGuid(),
             Name = request.Name,
             Description = request.Description,
             LengthInKm = request.LengthInKm,

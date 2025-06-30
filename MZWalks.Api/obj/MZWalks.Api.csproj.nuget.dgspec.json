@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\MZWalks.Api\\MZWalks.Api.csproj": {}
+    "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\mzwalks.api\\MZWalks.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\MZWalks.Api\\MZWalks.Api.csproj": {
+    "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\mzwalks.api\\MZWalks.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\MZWalks.Api\\MZWalks.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\mzwalks.api\\MZWalks.Api.csproj",
         "projectName": "MZWalks.Api",
-        "projectPath": "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\MZWalks.Api\\MZWalks.Api.csproj",
+        "projectPath": "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\mzwalks.api\\MZWalks.Api.csproj",
         "packagesPath": "C:\\Users\\Belton Menete\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\MZWalks.Api\\obj\\",
+        "outputPath": "C:\\Users\\Belton Menete\\RiderProjects\\MZWalks\\mzwalks.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Belton Menete\\AppData\\Roaming\\NuGet\\NuGet.Config"
