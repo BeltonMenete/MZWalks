@@ -47,6 +47,19 @@
           }
         }
       },
+      "ByteAether.Ulid/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/ByteAether.Ulid.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/ByteAether.Ulid.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1686,6 +1699,34 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "ByteAether.Ulid/1.2.0": {
+      "sha512": "6kTACPI3nPZRgUculpLx7zv5cvz5k2H9NLPIUYOUK64OilSRGHqnvZHGFaS3TnoIVA1nSZ2x/K2KKUhcIeKteA==",
+      "type": "package",
+      "path": "byteaether.ulid/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "PACKAGE.md",
+        "byteaether.ulid.1.2.0.nupkg.sha512",
+        "byteaether.ulid.nuspec",
+        "lib/net5.0/ByteAether.Ulid.dll",
+        "lib/net5.0/ByteAether.Ulid.xml",
+        "lib/net6.0/ByteAether.Ulid.dll",
+        "lib/net6.0/ByteAether.Ulid.xml",
+        "lib/net7.0/ByteAether.Ulid.dll",
+        "lib/net7.0/ByteAether.Ulid.xml",
+        "lib/net8.0/ByteAether.Ulid.dll",
+        "lib/net8.0/ByteAether.Ulid.xml",
+        "lib/net9.0/ByteAether.Ulid.dll",
+        "lib/net9.0/ByteAether.Ulid.xml",
+        "lib/netstandard2.0/ByteAether.Ulid.dll",
+        "lib/netstandard2.0/ByteAether.Ulid.xml",
+        "lib/netstandard2.1/ByteAether.Ulid.dll",
+        "lib/netstandard2.1/ByteAether.Ulid.xml",
+        "logo.png"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -4801,6 +4842,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "ByteAether.Ulid >= 1.2.0",
       "Microsoft.AspNetCore.OpenApi >= 9.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.6",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.6",
@@ -4850,6 +4892,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "ByteAether.Ulid": {
+            "target": "Package",
+            "version": "[1.2.0, )"
+          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[9.0.6, )"

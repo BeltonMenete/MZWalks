@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v9.0": {
       "MZWalks.Api/1.0.0": {
         "dependencies": {
+          "ByteAether.Ulid": "1.2.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.6",
@@ -49,6 +50,14 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.11.4.0",
             "fileVersion": "1.1100.424.31005"
+          }
+        }
+      },
+      "ByteAether.Ulid/1.2.0": {
+        "runtime": {
+          "lib/net9.0/ByteAether.Ulid.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -1043,6 +1052,13 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "ByteAether.Ulid/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6kTACPI3nPZRgUculpLx7zv5cvz5k2H9NLPIUYOUK64OilSRGHqnvZHGFaS3TnoIVA1nSZ2x/K2KKUhcIeKteA==",
+      "path": "byteaether.ulid/1.2.0",
+      "hashPath": "byteaether.ulid.1.2.0.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",

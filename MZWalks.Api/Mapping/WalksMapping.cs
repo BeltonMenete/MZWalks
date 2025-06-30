@@ -1,4 +1,5 @@
-﻿using MZWalks.Api.Contracts.Requests;
+﻿using ByteAether.Ulid;
+using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Contracts.Response;
 using MZWalks.Api.Models.Domain;
 
@@ -15,7 +16,7 @@ public static class WalksMapping
             Description = request.Description,
             LengthInKm = request.LengthInKm,
             WalkImageURl = request.WalkImageURl,
-            //DifficultyId = request.DifficultyId,
+            //DifficultyId = Ulid.Parse(request.DifficultyId).ToByteArray(),
             //RegionId = request.RegionId
         };
     }
@@ -26,7 +27,7 @@ public static class WalksMapping
         walk.Description = request.Description;
         walk.LengthInKm = request.LengthInKm;
         walk.WalkImageURl = request.WalkImageURl;
-        walk.DifficultyId = request.DifficultyId;
+        walk.DifficultyId = Ulid.Parse(request.DifficultyId).ToByteArray();
         walk.RegionId = request.RegionId;
         return walk;
     }

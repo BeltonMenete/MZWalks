@@ -14,7 +14,7 @@ public class WalkRepository(Database database) : IWalkRepository
             // .Include(w => w.Difficulty)
             // .Include((w) => w.Region)
             .AsQueryable();
-        if (!(string.IsNullOrEmpty(filterOn) && string.IsNullOrWhiteSpace(filterQuery)))
+        if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
         {
             if (filterOn.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -22,12 +22,14 @@ public class WalkRepository(Database database) : IWalkRepository
             }
         }
 
-        
-        if (!string.IsNullOrEmpty(sortBy))
+        if (string.IsNullOrEmpty(sortBy)) return await walks.ToListAsync();
         {
             if (sortBy.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
             {
                 walks = isAscending ? walks.OrderBy((w) => w.Name) : walks.OrderByDescending(w => w.Name);
+            }else if (sortBy.Equals("Length", StringComparison.InvariantCultureIgnoreCase))
+            {
+                walks = isAscending ? walks.OrderBy((w) => w.LengthInKm) : walks.OrderByDescending(w => w.LengthInKm); 
             }
         }
 
