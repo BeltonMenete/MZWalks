@@ -6,21 +6,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MZWalks.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrations : Migration
+    public partial class AddUpdatedULidAsByte : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Difficulty",
+                name: "Difficulties",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<byte[]>(type: "varbinary(900)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Difficulty", x => x.Id);
+                    table.PrimaryKey("PK_Difficulties", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,7 +30,7 @@ namespace MZWalks.Api.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegionImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    RegionImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,28 +38,28 @@ namespace MZWalks.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Walk",
+                name: "Walks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LengthInKm = table.Column<double>(type: "float", nullable: false),
-                    WalkImageURl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DifficultyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WalkImageURl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DifficultyId = table.Column<byte[]>(type: "varbinary(900)", nullable: false),
                     RegionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Walk", x => x.Id);
+                    table.PrimaryKey("PK_Walks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Walk_Difficulty_DifficultyId",
+                        name: "FK_Walks_Difficulties_DifficultyId",
                         column: x => x.DifficultyId,
-                        principalTable: "Difficulty",
+                        principalTable: "Difficulties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Walk_Regions_RegionId",
+                        name: "FK_Walks_Regions_RegionId",
                         column: x => x.RegionId,
                         principalTable: "Regions",
                         principalColumn: "Id",
@@ -67,13 +67,13 @@ namespace MZWalks.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Walk_DifficultyId",
-                table: "Walk",
+                name: "IX_Walks_DifficultyId",
+                table: "Walks",
                 column: "DifficultyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Walk_RegionId",
-                table: "Walk",
+                name: "IX_Walks_RegionId",
+                table: "Walks",
                 column: "RegionId");
         }
 
@@ -81,10 +81,10 @@ namespace MZWalks.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Walk");
+                name: "Walks");
 
             migrationBuilder.DropTable(
-                name: "Difficulty");
+                name: "Difficulties");
 
             migrationBuilder.DropTable(
                 name: "Regions");

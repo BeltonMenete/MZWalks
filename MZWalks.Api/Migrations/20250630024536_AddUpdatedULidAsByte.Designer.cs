@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MZWalks.Api.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20250626150835_Updat")]
-    partial class Updat
+    [Migration("20250630024536_AddUpdatedULidAsByte")]
+    partial class AddUpdatedULidAsByte
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,8 @@ namespace MZWalks.Api.Migrations
 
             modelBuilder.Entity("MZWalks.Api.Models.Domain.Difficulty", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<byte[]>("Id")
+                        .HasColumnType("varbinary(900)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -73,8 +72,9 @@ namespace MZWalks.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("DifficultyId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<byte[]>("DifficultyId")
+                        .IsRequired()
+                        .HasColumnType("varbinary(900)");
 
                     b.Property<double>("LengthInKm")
                         .HasColumnType("float");

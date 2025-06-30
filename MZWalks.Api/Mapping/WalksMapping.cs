@@ -41,7 +41,7 @@ public static class WalksMapping
             Description = walk.Description,
             LengthInKm = walk.LengthInKm,
             WalkImageURl = walk.WalkImageURl,
-            Difficulty = walk.Difficulty ?? null,
+            Difficulty = walk.Difficulty.MapToResponse() ?? null,
             Region = walk.Region != null ? walk.Region.MapToResponse() : null
         };
     }
