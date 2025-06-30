@@ -12,6 +12,6 @@ public class UpdateWalkRequest
 
     [Range(0, 50)] public required double LengthInKm { get; set; }
     public string WalkImageURl { get; set; }
-    public required Guid DifficultyId { get; set; }
-    public required Guid RegionId { get; set; }
+    public required string  DifficultyId { get; set; }
+    public required string RegionId { get; set; }
 }

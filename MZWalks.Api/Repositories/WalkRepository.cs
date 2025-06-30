@@ -11,12 +11,12 @@ public class WalkRepository(Database database) : IWalkRepository
     {
         var walks = database
             .Walks
-             .Include(w => w.Difficulty)
-             .Include((w) => w.Region)
+            .Include(w => w.Difficulty)
+            .Include((w) => w.Region)
             .AsQueryable();
         if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
         {
-            if (filterOn.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+            if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
             {
                 walks = walks.Where((w) => w.Name.Contains(filterQuery));
             }
@@ -24,12 +24,13 @@ public class WalkRepository(Database database) : IWalkRepository
 
         if (string.IsNullOrEmpty(sortBy)) return await walks.ToListAsync();
         {
-            if (sortBy.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+            if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
             {
                 walks = isAscending ? walks.OrderBy((w) => w.Name) : walks.OrderByDescending(w => w.Name);
-            }else if (sortBy.Equals("Length", StringComparison.InvariantCultureIgnoreCase))
+            }
+            else if (sortBy.Equals("Length", StringComparison.InvariantCultureIgnoreCase))
             {
-                walks = isAscending ? walks.OrderBy((w) => w.LengthInKm) : walks.OrderByDescending(w => w.LengthInKm); 
+                walks = isAscending ? walks.OrderBy((w) => w.LengthInKm) : walks.OrderByDescending(w => w.LengthInKm);
             }
         }
 

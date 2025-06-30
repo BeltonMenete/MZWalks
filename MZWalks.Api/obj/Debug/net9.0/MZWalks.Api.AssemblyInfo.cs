@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MZWalks.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8964acab114f77f0b7e023a282f0b41e6cfb14a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b26ed2f34b404edea7d3ebd1b0045881da702131")]
 [assembly: System.Reflection.AssemblyProductAttribute("MZWalks.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MZWalks.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

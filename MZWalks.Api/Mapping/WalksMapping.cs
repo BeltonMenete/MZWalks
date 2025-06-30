@@ -27,8 +27,8 @@ public static class WalksMapping
         walk.Description = request.Description;
         walk.LengthInKm = request.LengthInKm;
         walk.WalkImageURl = request.WalkImageURl;
-        walk.DifficultyId = request.DifficultyId;
-        walk.RegionId = request.RegionId;
+        walk.DifficultyId = Ulid.Parse(request.DifficultyId).ToGuid();
+        walk.RegionId = Ulid.Parse(request.RegionId).ToGuid();
         return walk;
     }
 
@@ -36,7 +36,7 @@ public static class WalksMapping
     {
         return new WalkResponse()
         {
-            Id = walk.Id,
+            Id = Ulid.New(walk.Id).ToString(),
             Name = walk.Name,
             Description = walk.Description,
             LengthInKm = walk.LengthInKm,
