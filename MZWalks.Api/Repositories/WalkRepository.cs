@@ -11,21 +11,26 @@ public class WalkRepository(Database database) : IWalkRepository
     {
         var walks = database
             .Walks
-            .Include(w => w.Difficulty)
-            .Include((w) => w.Region)
+            // .Include(w => w.Difficulty)
+            // .Include((w) => w.Region)
             .AsQueryable();
-        if (string.IsNullOrEmpty(filterOn) && string.IsNullOrWhiteSpace(filterQuery)) return await walks.ToListAsync();
-
-        if (filterOn.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+        if (!(string.IsNullOrEmpty(filterOn) && string.IsNullOrWhiteSpace(filterQuery)))
         {
-            walks = walks.Where((w) => w.Name.Contains(filterQuery));
+            if (filterOn.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+            {
+                walks = walks.Where((w) => w.Name.Contains(filterQuery));
+            }
         }
 
-        if (string.IsNullOrEmpty(sortBy)) return await walks.ToListAsync();
-        if (sortBy.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+        
+        if (!string.IsNullOrEmpty(sortBy))
         {
-            walks = isAscending ? database.Walks.OrderBy((w) => w.Name) : database.Walks.OrderByDescending(w => w.Name);
+            if (sortBy.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
+            {
+                walks = isAscending ? walks.OrderBy((w) => w.Name) : walks.OrderByDescending(w => w.Name);
+            }
         }
+
         return await walks.ToListAsync();
     }
 
