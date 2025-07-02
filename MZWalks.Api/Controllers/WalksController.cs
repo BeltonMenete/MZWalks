@@ -60,7 +60,10 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
         if (result is not null)
             return BadRequest(result);
 
-        return CreatedAtAction(nameof(Get), new { id = walk.Id }, walk.MapToResponse());
+        return CreatedAtAction(
+            nameof(Get), 
+            new { id = walk.Id }, 
+            walk.MapToResponse());
     }
 
     [HttpPut(ApiEndpoints.Walks.Update)]
