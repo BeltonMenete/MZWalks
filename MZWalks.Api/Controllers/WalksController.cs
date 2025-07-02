@@ -13,11 +13,20 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
 {
     // GET
     [HttpGet(ApiEndpoints.Walks.GetAll)]
-    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
-        [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1,
+    public async Task<IActionResult> GetAll(
+        [FromQuery] string? filterOn,
+        [FromQuery] string? filterQuery,
+        [FromQuery] string? sortBy,
+        [FromQuery] bool? isAscending,
+        [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 1000)
     {
-        var walks = await walkRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAscending ?? true, pageNumber,
+        var walks = await walkRepository.GetAllAsync(
+            filterOn,
+            filterQuery,
+            sortBy,
+            isAscending ?? true,
+            pageNumber,
             pageSize);
         var response = walks.Select((walk) => walk.MapToResponse());
         return Ok(response);
