@@ -4,33 +4,33 @@ using MZWalks.Api.Models.Domain;
 
 namespace MZWalks.Api.Repositories;
 
-public class RegionRepository(Database database) : IRegionRepository
+public class RegionRepository(Context context) : IRegionRepository
 {
     public async Task<List<Region>> GetAllAsync()
     {
-        return await database.Regions.ToListAsync();
+        return await context.Regions.ToListAsync();
     }
 
     public async Task<Region?> GetById(Guid id)
     {
-        return await database.Regions.FindAsync(id);
+        return await context.Regions.FindAsync(id);
     }
 
     public async Task CreateAsync(Region region)
     {
-        await database.Regions.AddAsync(region);
-        await database.SaveChangesAsync();
+        await context.Regions.AddAsync(region);
+        await context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(Region region)
     {
-        database.Regions.Update(region);
-        await database.SaveChangesAsync();
+        context.Regions.Update(region);
+        await context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Region region)
     {
-        database.Regions.Remove(region);
-        await database.SaveChangesAsync();
+        context.Regions.Remove(region);
+        await context.SaveChangesAsync();
     }
 }

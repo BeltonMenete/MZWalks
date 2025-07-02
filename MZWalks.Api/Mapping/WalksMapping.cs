@@ -11,13 +11,13 @@ public static class WalksMapping
     {
         return new Walk()
         {
-            Id = Ulid.New().ToGuid(),
+            Id = Ulid.New().ToString(),
             Name = request.Name,
             Description = request.Description,
             LengthInKm = request.LengthInKm,
             WalkImageURl = request.WalkImageURl,
-            //DifficultyId = request.DifficultyId,
-            //RegionId = request.RegionId
+            DifficultyId = Ulid.Parse(request.DifficultyId).ToGuid(),
+            RegionId = Ulid.Parse(request.RegionId).ToGuid()
         };
     }
 
@@ -36,7 +36,7 @@ public static class WalksMapping
     {
         return new WalkResponse()
         {
-            Id = Ulid.New(walk.Id).ToString(),
+            Id = Ulid.New().ToString(),
             Name = walk.Name,
             Description = walk.Description,
             LengthInKm = walk.LengthInKm,

@@ -9,7 +9,7 @@ var connString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
-builder.Services.AddDbContext<Database>(options => options.UseSqlServer(connString));
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connString));
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 var app = builder.Build();

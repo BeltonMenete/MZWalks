@@ -13,9 +13,11 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
 {
     // GET
     [HttpGet(ApiEndpoints.Walks.GetAll)]
-    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
+    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+        [FromQuery] string? sortBy, [FromQuery] bool isAscending, [FromQuery] int? pageNumber,
+        [FromQuery] int? pageSize)
     {
-        var walks = await walkRepository.GetAllAsync(filterOn, filterQuery);
+        var walks = await walkRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAscending);
         var response = walks.Select((walk) => walk.MapToResponse());
         return Ok(response);
     }
@@ -24,7 +26,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     [HttpGet(ApiEndpoints.Walks.Get)]
     public async Task<ActionResult> Get([FromRoute] string id)
     {
-        var walk = await walkRepository.GetById(Ulid.Parse(id).ToGuid());
+        var walk = await walkRepository.GetById(Ulid.Parse(id).ToString());
         if (walk is null) return NotFound();
         var response = walk.MapToResponse();
         return Ok(response);
@@ -46,7 +48,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     [ValidateModel]
     public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateWalkRequest request)
     {
-        var walk = await walkRepository.GetById(Ulid.Parse(id).ToGuid());
+        var walk = await walkRepository.GetById(id);
         if (walk is null) return NotFound("Walk Not Found");
         walk.MapUpdate(request);
         var result = await walkRepository.UpdateAsync(walk);
@@ -57,7 +59,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     [HttpDelete(ApiEndpoints.Walks.Delete)]
     public async Task<IActionResult> Delete([FromRoute] string id)
     {
-        var walk = await walkRepository.GetById(Ulid.Parse(id).ToGuid());
+        var walk = await walkRepository.GetById(id);
         if (walk is null) return NotFound();
         await walkRepository.DeleteAsync(walk);
         return NoContent();

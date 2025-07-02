@@ -10,7 +10,7 @@ public static class DifficultiesMapping
     {
         return new DifficultyResponse()
         {
-            Id = Ulid.New(difficulty.Id).ToString(),
+            Id = difficulty.Id,
             Name = difficulty.Name,
         };
     }

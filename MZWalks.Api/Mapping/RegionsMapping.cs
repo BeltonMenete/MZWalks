@@ -11,7 +11,7 @@ public static class RegionsMapping
     {
         return new Region()
         {
-            Id = Ulid.New().ToGuid(),
+            Id = Ulid.New().ToString(),
             Code = request.Code,
             Name = request.Name,
             RegionImageURL = request.RegionImageURL
@@ -30,7 +30,7 @@ public static class RegionsMapping
     {
         return new RegionResponse()
         {
-            Id = Ulid.New(region.Id).ToString(),
+            Id = region.Id,
             Code = region.Code,
             Name = region.Name,
             RegionImageURL = region.RegionImageURL
