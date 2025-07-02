@@ -34,13 +34,19 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
 
     //Get Walks Details
     [HttpGet(ApiEndpoints.Walks.GetSummary)]
-    public async Task<IActionResult> GetSummary()
+    public async Task<IActionResult> GetSummary(
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 1000)
     {
-        var walks = await walkRepository.GetAllAsync();
+        var walks = await walkRepository.GetAllAsync(
+            pageNumber: pageNumber,
+            pageSize: pageSize); //  named arguments
+
         var summary = walks.MapToList();
+
         return Ok(summary);
     }
-
+    
     // Get by id
     [HttpGet(ApiEndpoints.Walks.Get)]
     public async Task<ActionResult> Get([FromRoute] string id)
