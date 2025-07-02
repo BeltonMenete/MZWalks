@@ -26,7 +26,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     [HttpGet(ApiEndpoints.Walks.Get)]
     public async Task<ActionResult> Get([FromRoute] string id)
     {
-        var walk = await walkRepository.GetById(Ulid.Parse(id).ToString());
+        var walk = await walkRepository.GetById(id);
         if (walk is null) return NotFound();
         var response = walk.MapToResponse();
         return Ok(response);

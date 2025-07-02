@@ -16,8 +16,8 @@ public static class WalksMapping
             Description = request.Description,
             LengthInKm = request.LengthInKm,
             WalkImageURl = request.WalkImageURl,
-            DifficultyId = Ulid.Parse(request.DifficultyId).ToGuid(),
-            RegionId = Ulid.Parse(request.RegionId).ToGuid()
+            DifficultyId = request.DifficultyId,
+            RegionId = request.RegionId
         };
     }
 
@@ -27,8 +27,8 @@ public static class WalksMapping
         walk.Description = request.Description;
         walk.LengthInKm = request.LengthInKm;
         walk.WalkImageURl = request.WalkImageURl;
-        walk.DifficultyId = Ulid.Parse(request.DifficultyId).ToGuid();
-        walk.RegionId = Ulid.Parse(request.RegionId).ToGuid();
+        walk.DifficultyId = request.DifficultyId;
+        walk.RegionId = request.RegionId;
         return walk;
     }
 
@@ -36,7 +36,7 @@ public static class WalksMapping
     {
         return new WalkResponse()
         {
-            Id = Ulid.New().ToString(),
+            Id = walk.Id,
             Name = walk.Name,
             Description = walk.Description,
             LengthInKm = walk.LengthInKm,

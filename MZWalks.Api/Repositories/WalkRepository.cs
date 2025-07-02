@@ -34,6 +34,10 @@ public class WalkRepository(Context context) : IWalkRepository
             {
                 walks = isAscending ? walks.OrderBy((w) => w.LengthInKm) : walks.OrderByDescending(w => w.LengthInKm);
             }
+            else if (sortBy.Equals("Id", StringComparison.InvariantCultureIgnoreCase))
+            {
+                walks = isAscending ? walks.OrderBy(w => w.Id) : walks.OrderByDescending(w => w.Id);
+            }
         }
         // Pagination
 

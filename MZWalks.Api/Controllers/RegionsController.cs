@@ -22,7 +22,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [HttpGet(ApiEndpoints.Regions.Get)]
     public async Task<IActionResult> Get([FromRoute] string id)
     {
-        var region = await regionRepository.GetById(Ulid.Parse(id).ToGuid());
+        var region = await regionRepository.GetById(id);
         if (region is null) return NotFound();
         var response = region.MapToResponse();
         return Ok(response);
@@ -41,7 +41,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [ValidateModel]
     public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateRegionRequest request)
     {
-        var region = await regionRepository.GetById(Ulid.Parse(id).ToGuid());
+        var region = await regionRepository.GetById(id);
         if (region is null) return NotFound();
         region.MapUpdate(request);
         await regionRepository.UpdateAsync(region);
@@ -51,7 +51,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [HttpDelete(ApiEndpoints.Regions.Delete)]
     public async Task<IActionResult> Delete([FromRoute] string id)
     {
-        var region = await regionRepository.GetById(Ulid.Parse(id).ToGuid());
+        var region = await regionRepository.GetById(id);
         if (region is null) return NotFound();
         await regionRepository.DeleteAsync(region);
         return NoContent();
