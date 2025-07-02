@@ -14,14 +14,22 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     // GET
     [HttpGet(ApiEndpoints.Walks.GetAll)]
     public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
-        [FromQuery] string? sortBy, [FromQuery] bool isAscending, [FromQuery] int? pageNumber,
-        [FromQuery] int? pageSize)
+        [FromQuery] string? sortBy, [FromQuery] bool isAscending, [FromQuery] int pageNumber=1,
+        [FromQuery] int pageSize = 1000)
     {
-        var walks = await walkRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAscending);
+        var walks = await walkRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
         var response = walks.Select((walk) => walk.MapToResponse());
         return Ok(response);
     }
 
+    //Get Walks Details
+    [HttpGet(ApiEndpoints.Walks.GetSummary)]
+    public async Task<IActionResult> GetSummary()
+    {
+        var walks = await walkRepository.GetAllAsync();
+        var summary = walks.MapToList();
+        return Ok(summary);
+    }
     // Get by id
     [HttpGet(ApiEndpoints.Walks.Get)]
     public async Task<ActionResult> Get([FromRoute] string id)

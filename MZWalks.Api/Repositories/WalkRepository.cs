@@ -7,7 +7,7 @@ namespace MZWalks.Api.Repositories;
 public class WalkRepository(Context context) : IWalkRepository
 {
     public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
-        string? sortBy = null, bool isAscending = true, int? pageNumber = 1, int? pageSize = 1000)
+        string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 1000)
     {
         var walks = context
             .Walks
@@ -40,9 +40,9 @@ public class WalkRepository(Context context) : IWalkRepository
             }
         }
         // Pagination
-
-
-        return await walks.ToListAsync();
+        var skipResults = (pageNumber - 1) * pageSize;
+        
+        return await walks.Skip(skipResults).Take(pageNumber).ToListAsync();
     }
 
     public async Task<Walk?> GetById(string id)
@@ -63,11 +63,11 @@ public class WalkRepository(Context context) : IWalkRepository
         await context.SaveChangesAsync();
         return null;
     }
-
-
+    
     public async Task DeleteAsync(Walk walk)
     {
         context.Walks.Remove(walk);
         await context.SaveChangesAsync();
     }
+    
 }

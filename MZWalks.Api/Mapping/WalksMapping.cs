@@ -45,4 +45,13 @@ public static class WalksMapping
             Region = walk.Region != null ? walk.Region.MapToResponse() : null
         };
     }
+
+    public static WalksResponse MapToList(this List<Walk> requests)
+    {
+        return new WalksResponse()
+        {
+            //Items = requests,
+            Total = requests.Count
+        };
+    }
 }
