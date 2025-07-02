@@ -6,44 +6,56 @@ namespace MZWalks.Api.Repositories;
 
 public class WalkRepository(Context context) : IWalkRepository
 {
-    public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
-        string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 1000)
+    public async Task<List<Walk>> GetAllAsync(
+        string? filterOn = null,
+        string? filterQuery = null,
+        string? sortBy = null,
+        bool isAscending = true,
+        int pageNumber = 1,
+        int pageSize = 1000)
     {
-        var walks = context
-            .Walks
+        // Start query
+        var walksQuery = context.Walks
             .Include(w => w.Difficulty)
-            .Include((w) => w.Region)
+            .Include(w => w.Region)
             .AsQueryable();
+
         // Filtering
-        if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
+        if (!string.IsNullOrWhiteSpace(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
         {
             if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
             {
-                walks = walks.Where((w) => w.Name.Contains(filterQuery));
+                walksQuery = walksQuery.Where(w => w.Name.Contains(filterQuery));
             }
         }
 
         // Sorting
-        if (string.IsNullOrEmpty(sortBy)) return await walks.ToListAsync();
+        if (!string.IsNullOrWhiteSpace(sortBy))
         {
-            if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+            walksQuery = sortBy switch
             {
-                walks = isAscending ? walks.OrderBy((w) => w.Name) : walks.OrderByDescending(w => w.Name);
-            }
-            else if (sortBy.Equals("Length", StringComparison.InvariantCultureIgnoreCase))
-            {
-                walks = isAscending ? walks.OrderBy((w) => w.LengthInKm) : walks.OrderByDescending(w => w.LengthInKm);
-            }
-            else if (sortBy.Equals("Id", StringComparison.InvariantCultureIgnoreCase))
-            {
-                walks = isAscending ? walks.OrderBy(w => w.Id) : walks.OrderByDescending(w => w.Id);
-            }
+                var s when s.Equals("Name", StringComparison.OrdinalIgnoreCase) =>
+                    isAscending ? walksQuery.OrderBy(w => w.Name) : walksQuery.OrderByDescending(w => w.Name),
+
+                var s when s.Equals("Length", StringComparison.OrdinalIgnoreCase) =>
+                    isAscending ? walksQuery.OrderBy(w => w.LengthInKm) : walksQuery.OrderByDescending(w => w.LengthInKm),
+
+                var s when s.Equals("Id", StringComparison.OrdinalIgnoreCase) =>
+                    isAscending ? walksQuery.OrderBy(w => w.Id) : walksQuery.OrderByDescending(w => w.Id),
+
+                _ => walksQuery
+            };
         }
+
         // Pagination
         var skipResults = (pageNumber - 1) * pageSize;
-        
-        return await walks.Skip(skipResults).Take(pageNumber).ToListAsync();
+
+        return await walksQuery
+            .Skip(skipResults)
+            .Take(pageSize)
+            .ToListAsync();
     }
+
 
     public async Task<Walk?> GetById(string id)
     {
@@ -63,11 +75,10 @@ public class WalkRepository(Context context) : IWalkRepository
         await context.SaveChangesAsync();
         return null;
     }
-    
+
     public async Task DeleteAsync(Walk walk)
     {
         context.Walks.Remove(walk);
         await context.SaveChangesAsync();
     }
-    
 }
