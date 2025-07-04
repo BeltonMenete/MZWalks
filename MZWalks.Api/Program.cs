@@ -8,15 +8,17 @@ using Scalar.AspNetCore;
 
 // MZ Walks Configs
 var builder = WebApplication.CreateBuilder(args);
-var connString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dbConnString = builder.Configuration.GetConnectionString("DbConnection");
+var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection"); 
 var issuerSigningKey = builder.Configuration["Jwt:Key"];
 var validIssuer = builder.Configuration["Jwt:Issuer"];
 var validAudience = builder.Configuration["Jwt:Audience"];
 
-
+// Services
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
-builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connString));
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnString));
+builder.Services.AddDbContext<AuthContext> (options => options.UseSqlServer(authConnectionString));
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

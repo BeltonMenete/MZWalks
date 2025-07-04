@@ -163,3 +163,9 @@ C:\Users\Belton Menete\RiderProjects\MZWalks\mzwalks.api\obj\Debug\net9.0\MZWalk
 C:\Users\Belton Menete\RiderProjects\MZWalks\mzwalks.api\obj\Debug\net9.0\MZWalks.Api.genruntimeconfig.cache
 C:\Users\Belton Menete\RiderProjects\MZWalks\mzwalks.api\obj\Debug\net9.0\ref\MZWalks.Api.dll
 C:\Users\Belton Menete\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\ByteAether.Ulid.dll
+C:\Users\Belton Menete\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Belton Menete\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Belton Menete\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Belton Menete\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Belton Menete\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Belton Menete\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
