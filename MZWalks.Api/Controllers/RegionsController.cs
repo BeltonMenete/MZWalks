@@ -1,14 +1,15 @@
 ﻿using ByteAether.Ulid;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
 using MZWalks.Api.Validators;
 
-
 namespace MZWalks.Api.Controllers;
 
 [ApiController]
+[Authorize]
 public class RegionsController(IRegionRepository regionRepository) : ControllerBase
 {
     [HttpGet(ApiEndpoints.Regions.GetAll)]
