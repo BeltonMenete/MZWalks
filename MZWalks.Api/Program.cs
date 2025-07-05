@@ -10,7 +10,7 @@ using Scalar.AspNetCore;
 // MZ Walks Configs
 var builder = WebApplication.CreateBuilder(args);
 var dbConnString = builder.Configuration.GetConnectionString("DbConnection");
-var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection"); 
+var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection");
 var issuerSigningKey = builder.Configuration["Jwt:Key"];
 var validIssuer = builder.Configuration["Jwt:Issuer"];
 var validAudience = builder.Configuration["Jwt:Audience"];
@@ -19,12 +19,25 @@ var validAudience = builder.Configuration["Jwt:Audience"];
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnString));
-builder.Services.AddDbContext<AuthContext> (options => options.UseSqlServer(authConnectionString));
+builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(authConnectionString));
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddIdentityCore<IdentityUser>()
     .AddRoles<IdentityRole>()
-    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("MZWalks");
+    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("MZWalks")
+    .AddEntityFrameworkStores<AuthContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+});
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => options
         .TokenValidationParameters = new TokenValidationParameters()
