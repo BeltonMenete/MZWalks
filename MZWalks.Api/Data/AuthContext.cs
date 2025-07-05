@@ -1,13 +1,11 @@
-﻿
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MZWalks.Api.Data;
 
-public class AuthContext(DbContextOptions<AuthContext> options): IdentityDbContext(options)
+public class AuthContext(DbContextOptions<AuthContext> options) : IdentityDbContext(options)
 {
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -32,6 +30,7 @@ public class AuthContext(DbContextOptions<AuthContext> options): IdentityDbConte
                 NormalizedName = "Writer".ToUpper()
             }
         };
-        
-        modelBuilder.Entity<>()
+
+        modelBuilder.Entity<IdentityRole>().HasData(roles);
+    }
 }
