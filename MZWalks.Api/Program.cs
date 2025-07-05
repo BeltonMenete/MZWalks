@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MZWalks.Api.Data;
@@ -21,6 +22,9 @@ builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnStr
 builder.Services.AddDbContext<AuthContext> (options => options.UseSqlServer(authConnectionString));
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
+builder.Services.AddIdentityCore<IdentityUser>()
+    .AddRoles<IdentityRole>()
+    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("MZWalks");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => options
         .TokenValidationParameters = new TokenValidationParameters()
