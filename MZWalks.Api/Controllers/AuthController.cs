@@ -4,17 +4,19 @@ using MZWalks.Api.Contracts.Requests;
 
 namespace MZWalks.Api.Controllers
 {
-    [Route("api/[controller]")] // ✅ Added Route
+  
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
+
 
         public AuthController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }
 
+        // Register
         [HttpPost(ApiEndpoints.Auth.Register)]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -36,8 +38,14 @@ namespace MZWalks.Api.Controllers
             {
                 return BadRequest(roleResult.Errors); // ✅ Return role add errors
             }
-
             return Ok("New user was registered");
+        }
+        
+        // Login
+        [HttpPost(ApiEndpoints.Auth.Login)]
+        public async Task<IActionResult> Login()
+        {
+            return Ok();
         }
     }
 }
