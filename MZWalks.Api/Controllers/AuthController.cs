@@ -4,7 +4,6 @@ using MZWalks.Api.Contracts.Requests;
 
 namespace MZWalks.Api.Controllers
 {
-  
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -38,14 +37,19 @@ namespace MZWalks.Api.Controllers
             {
                 return BadRequest(roleResult.Errors); // ✅ Return role add errors
             }
+
             return Ok("New user was registered");
         }
-        
+
         // Login
         [HttpPost(ApiEndpoints.Auth.Login)]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            return Ok();
+            var user = await _userManager.FindByEmailAsync(request.Username);
+            if (user is null) return NotFound("User not Found");
+            var userPassword = await _userManager.CheckPasswordAsync(user , request.Password);
+            if (!userPassword) return BadRequest(("Incorrect Password"));
+            return Ok("Logged in");
         }
     }
 }
