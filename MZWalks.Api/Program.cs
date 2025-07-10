@@ -7,8 +7,9 @@ using MZWalks.Api.Data;
 using MZWalks.Api.Repositories;
 using Scalar.AspNetCore;
 
-// MZ Walks Configs
 var builder = WebApplication.CreateBuilder(args);
+
+// Configuration
 var dbConnString = builder.Configuration.GetConnectionString("DbConnection");
 var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection");
 var issuerSigningKey = builder.Configuration["Jwt:Key"];
@@ -18,10 +19,13 @@ var validAudience = builder.Configuration["Jwt:Audience"];
 // Services
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddAuthorization(); // ✅ Added
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnString));
 builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(authConnectionString));
+
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
+
 builder.Services.AddIdentityCore<IdentityUser>()
     .AddRoles<IdentityRole>()
     .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("MZWalks")
@@ -39,27 +43,28 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => options
-        .TokenValidationParameters = new TokenValidationParameters()
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding
-            .UTF8.GetBytes(issuerSigningKey)),
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = validIssuer,
-        ValidAudience = validAudience,
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(issuerSigningKey)),
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = validIssuer,
+            ValidAudience = validAudience
+        };
     });
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference(options => options.WithTheme(ScalarTheme.DeepSpace)
-        .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.RestSharp)
-    );
+        .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.RestSharp));
 }
 
 app.UseHttpsRedirection();
