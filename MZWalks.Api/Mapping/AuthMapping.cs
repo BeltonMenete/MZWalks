@@ -4,7 +4,7 @@ namespace MZWalks.Api.Mapping;
 
 public static class AuthMapping
 {
-    public static AuthResponse MapToRespose(this string jwtToken)
+    public static AuthResponse MapToResponse(this string jwtToken)
     {
         return new AuthResponse()
         {

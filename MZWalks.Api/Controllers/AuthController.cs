@@ -56,7 +56,7 @@ namespace MZWalks.Api.Controllers
             
             var roles = await _userManager.GetRolesAsync(user);
             var jwtoken = _tokenRepository.CreateJwtToken(user, roles.ToList());
-            return Ok(jwtoken.MapToRespose());
+            return Ok(jwtoken.MapToResponse());
         }
     }
 }
