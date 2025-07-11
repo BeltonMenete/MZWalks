@@ -15,9 +15,7 @@ namespace MZWalks.Api.Controllers;
 [Tags("Regions")]
 public class RegionsController(IRegionRepository regionRepository) : ControllerBase
 {
-    /// <summary>
-    /// Get all regions.
-    /// </summary>
+
     [HttpGet(ApiEndpoints.Regions.GetAll)]
     [ProducesResponseType(typeof(IEnumerable<RegionResponse>), StatusCodes.Status200OK)]
     [EndpointSummary("Retrieves all regions.")]
@@ -27,10 +25,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         var response = regions.Select((region) => region.MapToResponse());
         return Ok(response);
     }
-
-    /// <summary>
-    /// Get a region by its ID.
-    /// </summary>
+    
     [HttpGet(ApiEndpoints.Regions.Get)]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -43,10 +38,6 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         var response = region.MapToResponse();
         return Ok(response);
     }
-
-    /// <summary>
-    /// Create a new region.
-    /// </summary>
     [HttpPost(ApiEndpoints.Regions.Create)]
     [ValidateModel]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status201Created)]
@@ -58,10 +49,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         await regionRepository.CreateAsync(region);
         return CreatedAtAction(nameof(Get), new { id = region.Id }, region.MapToResponse());
     }
-
-    /// <summary>
-    /// Update an existing region.
-    /// </summary>
+    
     [HttpPut(ApiEndpoints.Regions.Update)]
     [ValidateModel]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status200OK)]
@@ -76,10 +64,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         await regionRepository.UpdateAsync(region);
         return Ok(region.MapToResponse());
     }
-
-    /// <summary>
-    /// Delete a region.
-    /// </summary>
+    
     [HttpDelete(ApiEndpoints.Regions.Delete)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

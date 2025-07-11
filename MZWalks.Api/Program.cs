@@ -64,7 +64,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options => options.WithTheme(ScalarTheme.DeepSpace)
+    app.MapScalarApiReference(options => options
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.RestSharp));
 }
 
