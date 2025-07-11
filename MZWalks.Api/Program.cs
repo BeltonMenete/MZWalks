@@ -10,7 +10,7 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration
-var dbConnString = builder.Configuration.GetConnectionString("DbConnection");
+var dbConnectionString = builder.Configuration.GetConnectionString("DbConnection");
 var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection");
 var issuerSigningKey = builder.Configuration["Jwt:Key"];
 var validIssuer = builder.Configuration["Jwt:Issuer"];
@@ -20,7 +20,7 @@ var validAudience = builder.Configuration["Jwt:Audience"];
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddAuthorization(); // ✅ Added
-builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnString));
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnectionString));
 builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(authConnectionString));
 
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
