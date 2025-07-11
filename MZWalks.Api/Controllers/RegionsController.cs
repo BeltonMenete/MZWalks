@@ -11,11 +11,10 @@ using MZWalks.Api.Contracts.Response;
 namespace MZWalks.Api.Controllers;
 
 [ApiController]
-[Authorize]
 [Tags("Regions")]
 public class RegionsController(IRegionRepository regionRepository) : ControllerBase
 {
-
+    [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.GetAll)]
     [ProducesResponseType(typeof(IEnumerable<RegionResponse>), StatusCodes.Status200OK)]
     [EndpointSummary("Retrieves all regions.")]
@@ -25,7 +24,8 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         var response = regions.Select((region) => region.MapToResponse());
         return Ok(response);
     }
-    
+
+    [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.Get)]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -38,6 +38,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         var response = region.MapToResponse();
         return Ok(response);
     }
+    [Authorize(Roles = "Reader")]
     [HttpPost(ApiEndpoints.Regions.Create)]
     [ValidateModel]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status201Created)]
@@ -49,9 +50,10 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         await regionRepository.CreateAsync(region);
         return CreatedAtAction(nameof(Get), new { id = region.Id }, region.MapToResponse());
     }
-    
-    [HttpPut(ApiEndpoints.Regions.Update)]
+
     [ValidateModel]
+    [Authorize(Roles = "Reader")]
+    [HttpPut(ApiEndpoints.Regions.Update)]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -64,7 +66,8 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         await regionRepository.UpdateAsync(region);
         return Ok(region.MapToResponse());
     }
-    
+
+    [Authorize(Roles = "Writer")]
     [HttpDelete(ApiEndpoints.Regions.Delete)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
