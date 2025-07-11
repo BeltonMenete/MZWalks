@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
+using MZWalks.Api.Repositories;
 
 namespace MZWalks.Api.Controllers
 {
@@ -8,11 +9,12 @@ namespace MZWalks.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ITokenRepository _tokenRepository;
 
-
-        public AuthController(UserManager<IdentityUser> userManager)
+        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
         {
             _userManager = userManager;
+            _tokenRepository = tokenRepository;
         }
 
         // Register
@@ -49,7 +51,9 @@ namespace MZWalks.Api.Controllers
             if (user is null) return NotFound("User not Found");
             var userPassword = await _userManager.CheckPasswordAsync(user , request.Password);
             if (!userPassword) return BadRequest(("Incorrect Password"));
-            return Ok("Logged in");
+            var roles = await _userManager.GetRolesAsync(user);
+            var jwtoken = _tokenRepository.CreateJwtToken(user, roles.ToList());
+            return Ok(jwtoken);
         }
     }
 }
