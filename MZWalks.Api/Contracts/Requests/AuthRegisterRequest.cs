@@ -2,7 +2,7 @@
 
 namespace MZWalks.Api.Contracts.Requests;
 
-public class RegisterRequest
+public class AuthRegisterRequest
 {
     [DataType(DataType.EmailAddress)]
     public required string Username { get; set; }

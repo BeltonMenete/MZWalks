@@ -1,6 +1,6 @@
 ﻿namespace MZWalks.Api.Contracts.Response;
 
-public class LoginResponse
+public class AuthResponse
 {
     public required string JwtToken { get; set; }
 }

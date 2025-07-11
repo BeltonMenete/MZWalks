@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
+using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
 
 namespace MZWalks.Api.Controllers
@@ -19,7 +20,7 @@ namespace MZWalks.Api.Controllers
 
         // Register
         [HttpPost(ApiEndpoints.Auth.Register)]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] AuthRegisterRequest request)
         {
             var newIdentityUser = new IdentityUser()
             {
@@ -45,15 +46,17 @@ namespace MZWalks.Api.Controllers
 
         // Login
         [HttpPost(ApiEndpoints.Auth.Login)]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] AuthLoginRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Username);
             if (user is null) return NotFound("User not Found");
+            
             var userPassword = await _userManager.CheckPasswordAsync(user , request.Password);
             if (!userPassword) return BadRequest(("Incorrect Password"));
+            
             var roles = await _userManager.GetRolesAsync(user);
             var jwtoken = _tokenRepository.CreateJwtToken(user, roles.ToList());
-            return Ok(jwtoken);
+            return Ok(jwtoken.MapToRespose());
         }
     }
 }
