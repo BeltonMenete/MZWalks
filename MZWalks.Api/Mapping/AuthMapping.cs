@@ -8,7 +8,7 @@ public static class AuthMapping
     {
         return new AuthResponse()
         {
-            JwtToken = jwtToken
+            Token = jwtToken
         };
     }
 }
