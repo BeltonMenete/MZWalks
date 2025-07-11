@@ -34,6 +34,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [HttpGet(ApiEndpoints.Regions.Get)]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [EndpointSummary("Retrieves a region by ID.")]
     public async Task<IActionResult> Get([FromRoute] string id)
     {

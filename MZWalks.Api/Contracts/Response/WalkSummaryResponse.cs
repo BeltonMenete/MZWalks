@@ -2,7 +2,7 @@
 
 namespace MZWalks.Api.Contracts.Response;
 
-public class WalksResponse
+public class WalkSummaryResponse
 {
     public List<Walk> Items { get; set; } = new List<Walk>();
     public int Total { get; set; }

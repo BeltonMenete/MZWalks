@@ -46,9 +46,9 @@ public static class WalksMapping
         };
     }
 
-    public static WalksResponse MapToList(this List<Walk> requests)
+    public static WalkSummaryResponse MapToList(this List<Walk> requests)
     {
-        return new WalksResponse()
+        return new WalkSummaryResponse()
         {
             //Items = requests,
             Total = requests.Count
