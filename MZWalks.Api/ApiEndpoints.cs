@@ -25,6 +25,11 @@ public static class ApiEndpoints
         public const string Delete = $"{Base}/{{id}}";
     }
 
+    public static class Images
+    {
+        private const string Base = $"{ApiBase}/images";
+        public const string Upload = Base;
+    }
     public static class Auth
     {
         private const string Base = $"{ApiBase}/auth";
