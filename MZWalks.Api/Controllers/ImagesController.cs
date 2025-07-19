@@ -13,6 +13,9 @@ public class ImagesController : ControllerBase
     public async Task<IActionResult> Upload([FromForm] CreateImageRequest request)
     {
         ValidateFileUpload(request);
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+        //repository to add image
+        
         return Created();
     }
 
