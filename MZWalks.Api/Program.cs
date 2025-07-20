@@ -19,7 +19,8 @@ var validAudience = builder.Configuration["Jwt:Audience"];
 // Services
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
-builder.Services.AddAuthorization(); // ✅ Added
+builder.Services.AddAuthorization(); 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnectionString));
 builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(authConnectionString));
 
