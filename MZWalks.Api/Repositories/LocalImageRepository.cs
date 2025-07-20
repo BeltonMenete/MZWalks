@@ -32,11 +32,10 @@ public class LocalImageRepository : IImageRepository
 
         var request = _httpContextAccessor.HttpContext.Request;
         var baseUrl = $"{request.Scheme}://{request.Host}{request.PathBase}";
-        image.Path = $"{baseUrl}/{ImageFolder}/{fileName.Replace(' ', '-')}";
+        image.Path = $"{baseUrl}/{ImageFolder}/{fileName}";
 
         _context.Images.Add(image);
         await _context.SaveChangesAsync();
-
         return image;
     }
 }
