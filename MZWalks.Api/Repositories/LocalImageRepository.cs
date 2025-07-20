@@ -1,42 +1,60 @@
-﻿using MZWalks.Api.Data;
+﻿using ByteAether.Ulid;
+using MZWalks.Api.Data;
 using MZWalks.Api.Models.Domain;
-
 namespace MZWalks.Api.Repositories;
 
 public class LocalImageRepository : IImageRepository
 {
-    private readonly Context _context;
+    private readonly Context _context; // Your database context
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public LocalImageRepository(Context context, IWebHostEnvironment hostingEnvironment, IHttpContextAccessor accessor)
+    public LocalImageRepository(Context context, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
-        _webHostEnvironment = hostingEnvironment;
-        _httpContextAccessor = accessor;
+        _webHostEnvironment = webHostEnvironment;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<Image> Upload(Image image)
     {
-        var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath,
-            "Images",
-            image.Name,
-            image.Extension);
-        // upload image to local path
-        using var stream = new FileStream(localFilePath, FileMode.Create);
-        await image.File.CopyToAsync(stream);
+        // 1. Construct the base directory for uploads
+        // This will be, for example: C:\YourApp\MZWalks.Api\Images
+        var uploadsFolder = Path.Combine(_webHostEnvironment.ContentRootPath, "Images");
 
-        //https://localhost:2001/api/images/upload
+        // Ensure the 'Images' directory exists. Create it if it doesn't.
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
 
-        var ulrFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}:" +
-                          $"//{_httpContextAccessor.HttpContext.Request.Host}" +
+        var uniqueFileName = Ulid.New().ToString() + image.Extension; // Use image.Extension which is now correct
+
+        var localFilePath = Path.Combine(uploadsFolder, uniqueFileName);
+        
+        using (var stream = new FileStream(localFilePath, FileMode.Create))
+        {
+            // This copies the content of the uploaded file to the local file system
+            await image.File.CopyToAsync(stream);
+        }
+
+        // 5. Construct the URL path to access the uploaded image via HTTP
+        // This path must match how you configure static files middleware.
+        // Example: https://localhost:2001/Images/unique-ulid.png
+        var urlFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}://" +
+                          $"{_httpContextAccessor.HttpContext.Request.Host}" +
                           $"{_httpContextAccessor.HttpContext.Request.PathBase}" +
-                          $"/images/{image.Name}" +
-                          $"/{image.Extension}";
-        image.Path = ulrFilePath;
-        // Add image to db
+                          $"/Images/{uniqueFileName}"; // Consistent with the folder name "Images" and unique filename
+
+        // Update the Image domain model with the path and the actual unique filename saved
+        image.Path = urlFilePath;
+
+        image.Name = uniqueFileName; // If Name is intended to be the actual filename
+
+        // 6. Add image metadata to the database
         await _context.Images.AddAsync(image);
         await _context.SaveChangesAsync();
-        return image;
+
+        return image; // Return the updated image object with its path
     }
 }
