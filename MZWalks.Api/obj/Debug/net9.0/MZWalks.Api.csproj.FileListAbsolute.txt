@@ -545,3 +545,6 @@ C:\Users\belto\RiderProjects\MZWalks\mzwalks.api\obj\Debug\net9.0\refint\MZWalks
 C:\Users\belto\RiderProjects\MZWalks\mzwalks.api\obj\Debug\net9.0\MZWalks.Api.pdb
 C:\Users\belto\RiderProjects\MZWalks\mzwalks.api\obj\Debug\net9.0\MZWalks.Api.genruntimeconfig.cache
 C:\Users\belto\RiderProjects\MZWalks\mzwalks.api\obj\Debug\net9.0\ref\MZWalks.Api.dll
+C:\Users\belto\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\belto\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\belto\RiderProjects\MZWalks\MZWalks.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

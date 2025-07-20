@@ -20,7 +20,7 @@ var validAudience = builder.Configuration["Jwt:Audience"];
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddAuthorization(); 
+builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(dbConnectionString));
 builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(authConnectionString));
@@ -66,12 +66,11 @@ var app = builder.Build();
 // Pipeline
 if (app.Environment.IsDevelopment())
 {
-    // app.MapOpenApi();
-    // app.MapScalarApiReference(options => options
-    //     .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.RestSharp));
+    app.MapOpenApi();
+    app.MapScalarApiReference(options => options
+        .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.RestSharp));
     app.UseSwagger();
     app.UseSwaggerUI();
-
 }
 
 app.UseHttpsRedirection();
