@@ -7,6 +7,11 @@ namespace MZWalks.Api.Controllers;
 [ApiController]
 public class ImagesController : ControllerBase
 {
+    private readonly IImageRepository _imageRepository;
+    public ImagesController()
+    {
+        _controller.Loca
+    }
     [ValidateModel]
     [HttpPost(ApiEndpoints.Images.Upload)]
     [EndpointSummary("Upload image")]

@@ -11,8 +11,14 @@ namespace MZWalks.Api.Controllers;
 
 [ApiController]
 [Tags("Walks")]
-public class WalksController(IWalkRepository walkRepository) : ControllerBase
+public class WalksController : ControllerBase
 {
+    private readonly IWalkRepository _walkRepository;
+    public WalksController(IWalkRepository walkRepository)
+    {
+        _walkRepository = walkRepository;
+    }
+
     [HttpGet(ApiEndpoints.Walks.GetAll)]
     [ProducesResponseType(typeof(IEnumerable<WalkResponse>), StatusCodes.Status200OK)]
     [EndpointSummary("Retrieves all walks with optional filtering, sorting, and pagination.")]
@@ -24,7 +30,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 1000)
     {
-        var walks = await walkRepository.GetAllAsync(
+        var walks = await _walkRepository.GetAllAsync(
             filterOn, filterQuery, sortBy, isAscending ?? true, pageNumber, pageSize);
 
         var response = walks.Select(w => w.MapToResponse());
@@ -38,7 +44,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 1000)
     {
-        var walks = await walkRepository.GetAllAsync(pageNumber: pageNumber, pageSize: pageSize);
+        var walks = await _walkRepository.GetAllAsync(pageNumber: pageNumber, pageSize: pageSize);
         var summary = walks.MapToList();
         return Ok(summary);
     }
@@ -49,7 +55,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     [EndpointSummary("Retrieves a walk by ID.")]
     public async Task<IActionResult> Get([FromRoute] string id)
     {
-        var walk = await walkRepository.GetById(id);
+        var walk = await _walkRepository.GetById(id);
         if (walk is null) return NotFound();
         return Ok(walk.MapToResponse());
     }
@@ -62,7 +68,7 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateWalkRequest request)
     {
         var walk = request.MapToWalk();
-        var result = await walkRepository.CreateAsync(walk);
+        var result = await _walkRepository.CreateAsync(walk);
         if (result is not null)
             return BadRequest(result);
 
@@ -77,11 +83,11 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     [EndpointSummary("Updates an existing walk.")]
     public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateWalkRequest request)
     {
-        var walk = await walkRepository.GetById(id);
+        var walk = await _walkRepository.GetById(id);
         if (walk is null) return NotFound("Walk Not Found");
 
         walk.MapUpdate(request);
-        var result = await walkRepository.UpdateAsync(walk);
+        var result = await _walkRepository.UpdateAsync(walk);
         if (result is not null) return BadRequest(result);
 
         return Ok(walk.MapToResponse());
@@ -93,10 +99,10 @@ public class WalksController(IWalkRepository walkRepository) : ControllerBase
     [EndpointSummary("Deletes a walk by ID.")]
     public async Task<IActionResult> Delete([FromRoute] string id)
     {
-        var walk = await walkRepository.GetById(id);
+        var walk = await _walkRepository.GetById(id);
         if (walk is null) return NotFound();
 
-        await walkRepository.DeleteAsync(walk);
+        await _walkRepository.DeleteAsync(walk);
         return NoContent();
     }
 }
