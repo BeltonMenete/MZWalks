@@ -12,9 +12,9 @@ public static class ImagesMapping
             File = request.File,
             Name = request.Name,
             Description = request.Description,
-            // Extension = Path.GetExtension(request.File.FileName)?.ToLowerInvariant() ?? string.Empty,
-            // SizeInBytes = request.File.Length,
-            // Path = string.Empty // This will be populated by the repository after saving the file
+            Extension = Path.GetExtension(request.File.FileName)?.ToLowerInvariant() ?? string.Empty,
+            SizeInBytes = request.File.Length,
+            Path = string.Empty 
         };
     }
 }

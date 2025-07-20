@@ -7,7 +7,7 @@ public class CreateImageRequest
 
     public string? Description { get; set; }
 
-    public string Extension { get; set; }
+    //public string Extension { get; set; }
     // public long SizeInBytes { get; set; }
     // public string Path { get; set; }
 }
