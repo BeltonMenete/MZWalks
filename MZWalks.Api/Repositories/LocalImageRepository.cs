@@ -27,5 +27,12 @@ public class LocalImageRepository : IImageRepository
         await image.File.CopyToAsync(stream);
         
       //https://localhost:2001/api/images/upload
+
+      var ulrFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}:" +
+                        $"//{_httpContextAccessor.HttpContext.Request.Host}" +
+                        $"{_httpContextAccessor.HttpContext.Request.PathBase}" +
+                        $"/images/{image.Name}" +
+                        $"/{image.Extension}";
+      image.Path = ulrFilePath;
     }
 }
