@@ -6,37 +6,37 @@ namespace MZWalks.Api.Repositories;
 public class LocalImageRepository : IImageRepository
 {
     private readonly Context _context;
-    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly IWebHostEnvironment _env;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private const string ImageFolder = "Images";
 
-    public LocalImageRepository(Context context, IWebHostEnvironment hostingEnvironment, IHttpContextAccessor accessor)
+    public LocalImageRepository(Context context, 
+        IWebHostEnvironment env, 
+        IHttpContextAccessor accessor)
     {
         _context = context;
-        _webHostEnvironment = hostingEnvironment;
+        _env = env;
         _httpContextAccessor = accessor;
     }
 
     public async Task<Image> Upload(Image image)
     {
-        var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath,
-            "Images",
-           $"{image.Name}{image.Extension}");
-        
-        // upload image to local path
+        var fileName = $"{image.Name}{image.Extension}";
+        var localFolderPath = Path.Combine(_env.ContentRootPath, ImageFolder);
+        var localFilePath = Path.Combine(localFolderPath, fileName);
+
+        Directory.CreateDirectory(localFolderPath);
+
         using var stream = new FileStream(localFilePath, FileMode.Create);
         await image.File.CopyToAsync(stream);
-        
-      //https://localhost:2001/api/images/upload
 
-      var ulrFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}:" +
-                        $"//{_httpContextAccessor.HttpContext.Request.Host}" +
-                        $"{_httpContextAccessor.HttpContext.Request.PathBase}" +
-                        $"/images/{image.Name}" +
-                        $"{image.Extension}";
-      image.Path = ulrFilePath;
-      // Add image metadata to db
-      await _context.Images.AddAsync(image);
-      await _context.SaveChangesAsync();
-      return  image;
+        var request = _httpContextAccessor.HttpContext.Request;
+        var baseUrl = $"{request.Scheme}://{request.Host}{request.PathBase}";
+        image.Path = $"{baseUrl}/{ImageFolder}/{fileName.Replace(' ', '-')}";
+
+        _context.Images.Add(image);
+        await _context.SaveChangesAsync();
+
+        return image;
     }
 }

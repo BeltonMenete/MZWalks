@@ -6,15 +6,15 @@ public static class ImagesMapping
 {
     public static Image MapToImage(this CreateImageRequest request)
     {
-        return new Image()
+        return new Image
         {
             Id = Ulid.New().ToString(),
             File = request.File,
-            Name = request.Name,
-            Description = request.Description,
+            Name = request.Name?.Trim().ToLowerInvariant(),
+            Description = request.Description?.Trim(),
             Extension = Path.GetExtension(request.File.FileName)?.ToLowerInvariant() ?? string.Empty,
             SizeInBytes = request.File.Length,
-            Path = string.Empty 
+            Path = string.Empty
         };
     }
 }
