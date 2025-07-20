@@ -6,7 +6,6 @@ using MZWalks.Api.Repositories;
 using MZWalks.Api.Validators;
 
 [ApiController]
-[Route("api/[controller]")] // This will make the base route /api/images
 public class ImagesController : ControllerBase
 {
     private readonly IImageRepository _imageRepository;
