@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
+using MZWalks.Api.Repositories;
 using MZWalks.Api.Validators;
 
 namespace MZWalks.Api.Controllers;
@@ -8,10 +9,12 @@ namespace MZWalks.Api.Controllers;
 public class ImagesController : ControllerBase
 {
     private readonly IImageRepository _imageRepository;
-    public ImagesController()
+
+    public ImagesController(IImageRepository imageRepository)
     {
-        _controller.Loca
+        _imageRepository = imageRepository;
     }
+
     [ValidateModel]
     [HttpPost(ApiEndpoints.Images.Upload)]
     [EndpointSummary("Upload image")]
@@ -20,7 +23,7 @@ public class ImagesController : ControllerBase
         ValidateFileUpload(request);
         if (!ModelState.IsValid) return BadRequest(ModelState);
         //repository to add image
-        
+
         return Created();
     }
 
