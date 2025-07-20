@@ -25,14 +25,18 @@ public class LocalImageRepository : IImageRepository
         // upload image to local path
         using var stream = new FileStream(localFilePath, FileMode.Create);
         await image.File.CopyToAsync(stream);
-        
-      //https://localhost:2001/api/images/upload
 
-      var ulrFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}:" +
-                        $"//{_httpContextAccessor.HttpContext.Request.Host}" +
-                        $"{_httpContextAccessor.HttpContext.Request.PathBase}" +
-                        $"/images/{image.Name}" +
-                        $"/{image.Extension}";
-      image.Path = ulrFilePath;
+        //https://localhost:2001/api/images/upload
+
+        var ulrFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}:" +
+                          $"//{_httpContextAccessor.HttpContext.Request.Host}" +
+                          $"{_httpContextAccessor.HttpContext.Request.PathBase}" +
+                          $"/images/{image.Name}" +
+                          $"/{image.Extension}";
+        image.Path = ulrFilePath;
+        // Add image to db
+        await _context.Images.AddAsync(image);
+        await _context.SaveChangesAsync();
+        return image;
     }
 }
