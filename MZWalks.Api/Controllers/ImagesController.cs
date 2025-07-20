@@ -15,16 +15,12 @@ public class ImagesController : ControllerBase
     {
         _imageRepository = imageRepository;
     }
-
-    // Assuming ApiEndpoints.Images.Upload might be something like "[action]" or a specific route
-    // If your route is /api/images, then [HttpPost] is sufficient.
-    // If it's /api/images/upload, then [HttpPost("upload")]
-    [ValidateModel] // Ensure this custom filter correctly handles ModelState.IsValid
-    [HttpPost(ApiEndpoints.Images.Upload)] // Or [HttpPost("upload")] if your route needs it more specific
-    [EndpointSummary("Upload image")] // If this is a custom attribute, ensure it's defined
+    
+    [HttpPost(ApiEndpoints.Images.Upload)]
+    [EndpointSummary("Upload image")] 
     public async Task<IActionResult> Upload([FromForm] CreateImageRequest request)
     {
-        // Your custom file validation
+        // my custom file validation
         ValidateFileUpload(request);
 
         if (!ModelState.IsValid)
@@ -37,9 +33,6 @@ public class ImagesController : ControllerBase
 
         // Repository to add image and save it locally
         var uploadedImage = await _imageRepository.Upload(image);
-
-        // Map domain model back to DTO for response if needed, or return domain model directly
-        // For simplicity, returning the domain model here.
         return Ok(uploadedImage);
     }
 
