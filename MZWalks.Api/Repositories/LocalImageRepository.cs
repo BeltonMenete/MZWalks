@@ -20,8 +20,8 @@ public class LocalImageRepository : IImageRepository
     {
         var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath,
             "Images",
-            image.Name,
-            image.Extension);
+           $"{image.Name}{image.Extension}");
+        
         // upload image to local path
         using var stream = new FileStream(localFilePath, FileMode.Create);
         await image.File.CopyToAsync(stream);
@@ -32,9 +32,9 @@ public class LocalImageRepository : IImageRepository
                         $"//{_httpContextAccessor.HttpContext.Request.Host}" +
                         $"{_httpContextAccessor.HttpContext.Request.PathBase}" +
                         $"/images/{image.Name}" +
-                        $"/{image.Extension}";
+                        $"{image.Extension}";
       image.Path = ulrFilePath;
-      // Add image to db
+      // Add image metadata to db
       await _context.Images.AddAsync(image);
       await _context.SaveChangesAsync();
       return  image;

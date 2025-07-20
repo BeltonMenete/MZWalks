@@ -24,6 +24,9 @@ artifacts/
 *.log
 logs/
 
+## local Images ##
+.mzwalks.api/images/
+
 ## User secrets ###
 secrets.json
 
