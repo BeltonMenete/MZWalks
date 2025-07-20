@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
+using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
 using MZWalks.Api.Validators;
 
@@ -23,8 +24,8 @@ public class ImagesController : ControllerBase
         ValidateFileUpload(request);
         if (!ModelState.IsValid) return BadRequest(ModelState);
         //repository to add image
-
-        return Created();
+        var image = await _imageRepository.Upload(request.MapToImage());
+        return Ok(image);
     }
 
 

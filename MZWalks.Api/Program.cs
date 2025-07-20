@@ -18,6 +18,7 @@ var validAudience = builder.Configuration["Jwt:Audience"];
 
 // Services
 builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddAuthorization(); 
 builder.Services.AddHttpContextAccessor();
@@ -65,9 +66,12 @@ var app = builder.Build();
 // Pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference(options => options
-        .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.RestSharp));
+    // app.MapOpenApi();
+    // app.MapScalarApiReference(options => options
+    //     .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.RestSharp));
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();
