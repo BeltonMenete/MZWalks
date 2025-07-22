@@ -26,7 +26,7 @@ MZWalks is an API for managing walks, regions, and difficulty levels in Mozambiq
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/MZWalks.git
+   git clone https://github.com/BeltonMenete/MZWalks.git
    ```
 
 2. **Configure the database**\
