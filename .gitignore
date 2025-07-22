@@ -1,34 +1,34 @@
+# === Top-Level IDE Settings ===
+.idea/
+.vscode/
+
 # === Visual Studio / Rider ===
-MZWalks.Api/.vs/
-MZWalks.Api/*.user
-MZWalks.Api/*.suo
-MZWalks.Api/*.sln.docstates
+**/.vs/
+**/*.user
+**/*.suo
+**/*.sln.docstates
 
 # === Build outputs ===
-MZWalks.Api/.bin/
-MZWalks.Api/.obj/
-MZWalks.Api/artifacts/
+**/bin/
+**/obj/
+**/artifacts/
 
-# === JetBrains Rider / IntelliJ ===
-.idea/
-.idea/**/.idea/
-
-# === User-specific files ===
-MZWalks.Api/*.env.local
-MZWalks.Api/*.env.*.local
-MZWalks.Api/.env.*
-MZWalks.Api/secrets.json
-
-# === VS Code ===
-.vscode/
-MZWalks.Api/.vscode/
+# === Environment and Config Files ===
+**/*.env.local
+**/*.env.*.local
+**/.env.*
+**/secrets.json
 
 # === Logs ===
-MZWalks.Api/*.log
-MZWalks.Api/logs/
+**/*.log
+**/logs/
 
-# === Local Images ===
-MZWalks.Api/.images/
+# === Local Images (if not tracked on purpose) ===
+**/.images/
 
-# === Published output ===
-MZWalks.Api/publish/
+# === Publish Output ===
+**/publish/
+
+# === OS Specific ===
+.DS_Store
+Thumbs.db
