@@ -1,0 +1,32 @@
+# === Visual Studio / Rider ===
+MZWalks.api/.vs/
+MZWalks.api/*.user
+MZWalks.api/*.suo
+MZWalks.api/*.sln.docstates
+
+# === Build outputs ===
+MZWalks.api/.bin/
+MZWalks.api/.obj/
+MZWalks.api/artifacts/
+
+# === JetBrains Rider ===
+MZWalks.api/.idea/
+
+# === User-specific files ===
+MZWalks.api/*.env.local
+MZWalks.api/*.env.*.local
+MZWalks.api/.env.*
+MZWalks.api/secrets.json
+
+# === VS Code ===
+MZWalks.api/.vscode/
+
+# === Logs ===
+MZWalks.api/*.log
+MZWalks.api/logs/
+
+# === Local Images ===
+MZWalks.api/.images/
+
+# === Published output ===
+MZWalks.api/publish/
