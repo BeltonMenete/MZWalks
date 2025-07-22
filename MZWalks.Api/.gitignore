@@ -5,8 +5,8 @@
 *.sln.docstates
 
 ## Build outputs ###
-bin/
-obj/
+.bin/
+.obj/
 artifacts/
 
 ## Rider ###
