@@ -7,15 +7,26 @@ using Microsoft.IdentityModel.Tokens;
 using MZWalks.Api.Data;
 using MZWalks.Api.Repositories;
 using Scalar.AspNetCore;
+using Serilog;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration
+var validIssuer = builder.Configuration["Jwt:Issuer"];
+var issuerSigningKey = builder.Configuration["Jwt:Key"];
+var validAudience = builder.Configuration["Jwt:Audience"];
 var dbConnectionString = builder.Configuration.GetConnectionString("DbConnection");
 var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection");
-var issuerSigningKey = builder.Configuration["Jwt:Key"];
-var validIssuer = builder.Configuration["Jwt:Issuer"];
-var validAudience = builder.Configuration["Jwt:Audience"];
+
+//  Add Logging
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .MinimumLevel.Information()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 // Services
 builder.Services.AddOpenApi();
@@ -73,7 +84,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

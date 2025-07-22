@@ -12,15 +12,18 @@ namespace MZWalks.Api.Controllers;
 
 [ApiController]
 [Tags("Regions")]
-public class RegionsController(IRegionRepository regionRepository) : ControllerBase
+public class RegionsController(IRegionRepository regionRepository, ILogger<RegionsController> logger) : ControllerBase
 {
+    private readonly IRegionRepository _regionRepository = regionRepository;
+    private readonly  ILogger<RegionsController> _logger = logger;
+    
     [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.GetAll)]
     [ProducesResponseType(typeof(IEnumerable<RegionResponse>), StatusCodes.Status200OK)]
     [EndpointSummary("Retrieves all regions.")]
     public async Task<IActionResult> GetAll()
     {
-        var regions = await regionRepository.GetAllAsync();
+        var regions = await _regionRepository.GetAllAsync();
         var response = regions.Select((region) => region.MapToResponse());
         return Ok(response);
     }
@@ -33,7 +36,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [EndpointSummary("Retrieves a region by ID.")]
     public async Task<IActionResult> Get([FromRoute] string id)
     {
-        var region = await regionRepository.GetById(id);
+        var region = await _regionRepository.GetById(id);
         if (region is null) return NotFound();
         var response = region.MapToResponse();
         return Ok(response);
@@ -47,7 +50,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     public async Task<IActionResult> Create([FromBody] CreateRegionRequest request)
     {
         var region = request.MapToRegion();
-        await regionRepository.CreateAsync(region);
+        await _regionRepository.CreateAsync(region);
         return CreatedAtAction(nameof(Get), new { id = region.Id }, region.MapToResponse());
     }
 
@@ -60,10 +63,10 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [EndpointSummary("Updates an existing region.")]
     public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateRegionRequest request)
     {
-        var region = await regionRepository.GetById(id);
+        var region = await _regionRepository.GetById(id);
         if (region is null) return NotFound();
         region.MapUpdate(request);
-        await regionRepository.UpdateAsync(region);
+        await _regionRepository.UpdateAsync(region);
         return Ok(region.MapToResponse());
     }
 
@@ -74,9 +77,9 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
     [EndpointSummary("Deletes a region by ID.")]
     public async Task<IActionResult> Delete([FromRoute] string id)
     {
-        var region = await regionRepository.GetById(id);
+        var region = await _regionRepository.GetById(id);
         if (region is null) return NotFound();
-        await regionRepository.DeleteAsync(region);
+        await _regionRepository.DeleteAsync(region);
         return NoContent();
     }
 }
