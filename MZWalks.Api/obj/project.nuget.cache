@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kO9IDFQObmM=",
+  "dgSpecHash": "cbJfLHpiSg4=",
   "success": true,
   "projectFilePath": "C:\\Users\\belto\\RiderProjects\\MZWalks\\MZWalks.Api\\MZWalks.Api.csproj",
   "expectedPackageFiles": [
@@ -130,7 +130,7 @@
     "C:\\Users\\belto\\.nuget\\packages\\serilog.settings.configuration\\9.0.0\\serilog.settings.configuration.9.0.0.nupkg.sha512",
     "C:\\Users\\belto\\.nuget\\packages\\serilog.sinks.console\\6.0.0\\serilog.sinks.console.6.0.0.nupkg.sha512",
     "C:\\Users\\belto\\.nuget\\packages\\serilog.sinks.debug\\3.0.0\\serilog.sinks.debug.3.0.0.nupkg.sha512",
-    "C:\\Users\\belto\\.nuget\\packages\\serilog.sinks.file\\6.0.0\\serilog.sinks.file.6.0.0.nupkg.sha512",
+    "C:\\Users\\belto\\.nuget\\packages\\serilog.sinks.file\\7.0.0\\serilog.sinks.file.7.0.0.nupkg.sha512",
     "C:\\Users\\belto\\.nuget\\packages\\swashbuckle.aspnetcore\\9.0.3\\swashbuckle.aspnetcore.9.0.3.nupkg.sha512",
     "C:\\Users\\belto\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\9.0.3\\swashbuckle.aspnetcore.swagger.9.0.3.nupkg.sha512",
     "C:\\Users\\belto\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\9.0.3\\swashbuckle.aspnetcore.swaggergen.9.0.3.nupkg.sha512",

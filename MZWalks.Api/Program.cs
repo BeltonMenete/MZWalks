@@ -22,6 +22,7 @@ var authConnectionString = builder.Configuration.GetConnectionString("AuthConnec
 //  Add Logging
 var logger = new LoggerConfiguration()
     .WriteTo.Console()
+    .WriteTo.File("./Logs/MZWalks_logs.txt", rollingInterval: RollingInterval.Minute)
     .MinimumLevel.Information()
     .CreateLogger();
 
@@ -88,7 +89,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseStaticFiles( new StaticFileOptions()
+app.UseStaticFiles(new StaticFileOptions()
 {
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
     RequestPath = "/Images"

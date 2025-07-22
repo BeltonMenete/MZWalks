@@ -1,12 +1,14 @@
-﻿using ByteAether.Ulid;
+﻿using System.Net;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MZWalks.Api.Contracts.Requests;
 using MZWalks.Api.Mapping;
 using MZWalks.Api.Repositories;
 using MZWalks.Api.Validators;
-using Microsoft.AspNetCore.OpenApi;
 using MZWalks.Api.Contracts.Response;
+
 
 namespace MZWalks.Api.Controllers;
 
@@ -15,17 +17,26 @@ namespace MZWalks.Api.Controllers;
 public class RegionsController(IRegionRepository regionRepository, ILogger<RegionsController> logger) : ControllerBase
 {
     private readonly IRegionRepository _regionRepository = regionRepository;
-    private readonly  ILogger<RegionsController> _logger = logger;
-    
+    private readonly ILogger<RegionsController> _logger = logger;
+
     [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.GetAll)]
     [ProducesResponseType(typeof(IEnumerable<RegionResponse>), StatusCodes.Status200OK)]
     [EndpointSummary("Retrieves all regions.")]
     public async Task<IActionResult> GetAll()
     {
-        var regions = await _regionRepository.GetAllAsync();
-        var response = regions.Select((region) => region.MapToResponse());
-        return Ok(response);
+        try
+        {
+            throw new Exception("Software Crashed for unknown reasons!");
+            var regions = await _regionRepository.GetAllAsync();
+            var response = regions.Select((region) => region.MapToResponse());
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            throw;
+        }
     }
 
     [Authorize(Roles = "Reader")]
@@ -41,6 +52,7 @@ public class RegionsController(IRegionRepository regionRepository, ILogger<Regio
         var response = region.MapToResponse();
         return Ok(response);
     }
+
     [Authorize(Roles = "Reader")]
     [HttpPost(ApiEndpoints.Regions.Create)]
     [ValidateModel]
