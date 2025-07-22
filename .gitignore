@@ -1,34 +1,30 @@
-# === Top-Level IDE Settings ===
-.idea/
-.vscode/
+# === Ignore build and IDE folders inside MZWalks.Api ===
+MZWalks.Api/bin/
+MZWalks.Api/obj/
+MZWalks.Api/.vs/
+MZWalks.Api/.idea/
+MZWalks.Api/.vscode/
 
-# === Visual Studio / Rider ===
-**/.vs/
-**/*.user
-**/*.suo
-**/*.sln.docstates
+# === Ignore logs and temporary files ===
+MZWalks.Api/*.log
+MZWalks.Api/logs/
 
-# === Build outputs ===
-**/bin/
-**/obj/
-**/artifacts/
+# === Ignore environment and user-specific config files ===
+MZWalks.Api/*.user
+MZWalks.Api/*.suo
+MZWalks.Api/*.sln.docstates
+MZWalks.Api/*.env.local
+MZWalks.Api/*.env.*.local
+MZWalks.Api/.env.*
+MZWalks.Api/secrets.json
 
-# === Environment and Config Files ===
-**/*.env.local
-**/*.env.*.local
-**/.env.*
-**/secrets.json
+# === Ignore published and artifacts folders ===
+MZWalks.Api/publish/
+MZWalks.Api/artifacts/
 
-# === Logs ===
-**/*.log
-**/logs/
+# === Ignore Images folder (user uploads or generated files) ===
+MZWalks.Api/Images/
 
-# === Local Images (if not tracked on purpose) ===
-**/.images/
-
-# === Publish Output ===
-**/publish/
-
-# === OS Specific ===
+# === OS-specific ===
 .DS_Store
 Thumbs.db
