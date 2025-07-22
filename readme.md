@@ -9,7 +9,7 @@ MZWalks is an API for managing walks, regions, and difficulty levels in Mozambiq
 - CRUD operations
 - Entity Framework Core with SQL Server
 - Repository pattern
-- DTOs and AutoMapper
+- DTOs(contracts)
 - JWT Authentication & Authorization
 - Input validation
 
@@ -19,7 +19,7 @@ MZWalks is an API for managing walks, regions, and difficulty levels in Mozambiq
 - Entity Framework Core
 - SQL Server
 - JWT Authentication
-- Scalar (API documentation)
+- ScalarUI&SwaggerUI (API documentation)
 
 ## 🚀 Getting Started
 
@@ -54,7 +54,6 @@ MZWalks is an API for managing walks, regions, and difficulty levels in Mozambiq
 
 - **Regions**: `/api/regions`
 - **Walks**: `/api/walks`
-- **Walk Difficulties**: `/api/walkdifficulties`
 - **Auth**: `/api/auth`
 
 ## ✍️ Notes
