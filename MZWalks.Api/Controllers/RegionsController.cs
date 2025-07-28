@@ -25,23 +25,14 @@ public class RegionsController(IRegionRepository regionRepository, ILogger<Regio
     [EndpointSummary("Retrieves all regions.")]
     public async Task<IActionResult> GetAll()
     {
-        try
-        {
-            throw new Exception("Software Crashed for unknown reasons!");
-            var regions = await _regionRepository.GetAllAsync();
-            var response = regions.Select((region) => region.MapToResponse());
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            throw;
-        }
+        var regions = await _regionRepository.GetAllAsync();
+        var response = regions.Select((region) => region.MapToResponse());
+        return Ok(response);
     }
 
     [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.Get)]
-    [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(RegionResponse), 200)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [EndpointSummary("Retrieves a region by ID.")]
