@@ -3,9 +3,9 @@
 
 namespace MZWalks.Api.Middlewares;
 
-public class CustomExceptionHandlerMiddleware(ILogger<CustomExceptionHandlerMiddleware> logger, RequestDelegate next)
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, RequestDelegate next)
 {
-    private readonly ILogger<CustomExceptionHandlerMiddleware> _logger = logger;
+    private readonly ILogger<GlobalExceptionHandler> _logger = logger;
     private readonly RequestDelegate _next = next;
 
     public async Task InvokeAsync(HttpContext context)
