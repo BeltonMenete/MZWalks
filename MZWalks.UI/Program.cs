@@ -1,8 +1,11 @@
+using MZWalks.UI;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+var apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"];
+builder.Services.AddSingleton(new RegionService(apiBaseUrl));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

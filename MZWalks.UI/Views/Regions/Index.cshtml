@@ -1,0 +1,31 @@
+﻿@using System.Net.Mime
+@using MZWalks.Api.Models.Domain;
+@model List<Region>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Go home</a>
+</div>
+<div>
+    <h1>Regions will be here</h1>
+    <ol>
+        @{
+            foreach (var region in Model)
+            {
+                <li>
+                    @region.Name
+                </li>
+            }
+        }
+    </ol>
+</div>
+</body>
+</html>
