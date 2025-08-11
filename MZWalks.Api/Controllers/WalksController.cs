@@ -32,7 +32,7 @@ public class WalksController : ControllerBase
     {
         var walks = await _walkRepository.GetAllAsync(
             filterOn, filterQuery, sortBy, isAscending ?? true, pageNumber, pageSize);
-
+        throw new Exception("Error error error error error error error");
         var response = walks.Select(w => w.MapToResponse());
         return Ok(response);
     }
@@ -101,7 +101,6 @@ public class WalksController : ControllerBase
     {
         var walk = await _walkRepository.GetById(id);
         if (walk is null) return NotFound();
-
         await _walkRepository.DeleteAsync(walk);
         return NoContent();
     }

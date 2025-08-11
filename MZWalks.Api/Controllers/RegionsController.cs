@@ -14,10 +14,9 @@ namespace MZWalks.Api.Controllers;
 
 [ApiController]
 [Tags("Regions")]
-public class RegionsController(IRegionRepository regionRepository, ILogger<RegionsController> logger) : ControllerBase
+public class RegionsController(IRegionRepository regionRepository) : ControllerBase
 {
     private readonly IRegionRepository _regionRepository = regionRepository;
-    private readonly ILogger<RegionsController> _logger = logger;
 
     [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.GetAll)]
@@ -72,7 +71,7 @@ public class RegionsController(IRegionRepository regionRepository, ILogger<Regio
         await _regionRepository.UpdateAsync(region);
         return Ok(region.MapToResponse());
     }
-
+    
     [Authorize(Roles = "Writer")]
     [HttpDelete(ApiEndpoints.Regions.Delete)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -81,7 +80,9 @@ public class RegionsController(IRegionRepository regionRepository, ILogger<Regio
     public async Task<IActionResult> Delete([FromRoute] string id)
     {
         var region = await _regionRepository.GetById(id);
-        if (region is null) return NotFound();
+        if (region is null)
+            return NotFound();
+
         await _regionRepository.DeleteAsync(region);
         return NoContent();
     }
