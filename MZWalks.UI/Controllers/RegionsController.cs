@@ -36,8 +36,9 @@ public class RegionsController : Controller
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var regions = await _regionService.GetRegionAsync(id);
-        return View();
+        var regionDto = await _regionService.GetRegionAsync(id);
+        
+        return View(regionDto);
     }
     
     [HttpPost]

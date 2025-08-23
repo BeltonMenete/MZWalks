@@ -29,7 +29,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         return Ok(response);
     }
 
-    [Authorize(Roles = "Reader")]
+  //  [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.Get)]
     [ProducesResponseType(typeof(RegionResponse), 200)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
