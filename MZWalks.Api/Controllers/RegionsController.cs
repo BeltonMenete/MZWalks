@@ -18,7 +18,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
 {
     private readonly IRegionRepository _regionRepository = regionRepository;
 
-    //[Authorize(Roles = "Reader")]
+    //  [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.GetAll)]
     [ProducesResponseType(typeof(IEnumerable<RegionResponse>), StatusCodes.Status200OK)]
     [EndpointSummary("Retrieves all regions.")]
@@ -29,7 +29,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         return Ok(response);
     }
 
-   // [Authorize(Roles = "Reader")]
+    [Authorize(Roles = "Reader")]
     [HttpGet(ApiEndpoints.Regions.Get)]
     [ProducesResponseType(typeof(RegionResponse), 200)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -43,7 +43,7 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         return Ok(response);
     }
 
-   // [Authorize(Roles = "Reader")]
+  //  [Authorize(Roles = "Reader")]
     [HttpPost(ApiEndpoints.Regions.Create)]
     [ValidateModel]
     [ProducesResponseType(typeof(RegionResponse), StatusCodes.Status201Created)]
@@ -71,8 +71,8 @@ public class RegionsController(IRegionRepository regionRepository) : ControllerB
         await _regionRepository.UpdateAsync(region);
         return Ok(region.MapToResponse());
     }
-    
-   // [Authorize(Roles = "Writer")]
+
+  //  [Authorize(Roles = "Writer")]
     [HttpDelete(ApiEndpoints.Regions.Delete)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
