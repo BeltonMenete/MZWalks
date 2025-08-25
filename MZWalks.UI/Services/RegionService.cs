@@ -1,5 +1,4 @@
-﻿
-using MZWalks.UI.Models.DTOs;
+﻿using MZWalks.UI.Models.DTOs;
 using RestSharp;
 using Method = RestSharp.Method;
 
@@ -48,11 +47,11 @@ public class RegionService
 
         return response.Data;
     }
-    
+
     public async Task<RestResponse> CreateRegionsAsync(CreateRegionDto newRegion)
     {
         var request = new RestRequest("api/regions", Method.Post);
-        
+
         request.AddJsonBody(newRegion);
 
         var response = await _client.ExecuteAsync(request);
@@ -62,19 +61,17 @@ public class RegionService
 
     public async Task<RestResponse> DeleteRegionAsync(string id)
     {
-        var request = new RestRequest($"api/regions/{id}",Method.Delete);
+        var request = new RestRequest($"api/regions/{id}", Method.Delete);
 
         var response = await _client.ExecuteAsync(request);
         return response;
     }
-    
-    public async Task<RestResponse> UpdateRegionAsync(UpdateRegionDto region)
+
+    public async Task<RestResponse> UpdateRegionAsync(string id, UpdateRegionDto region)
     {
-        var request = new RestRequest($"api/regions",Method.Put);
+        var request = new RestRequest("api/regions/" + id, Method.Put);
         request.AddJsonBody(region);
-        
         var response = await _client.ExecuteAsync(request);
         return response;
     }
-    
 }

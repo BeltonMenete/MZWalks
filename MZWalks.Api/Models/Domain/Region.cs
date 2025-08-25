@@ -9,4 +9,5 @@ public class Region
     public required string Code { get; set; }
     public required string Name { get; set; }
     public required string RegionImageURL { get; set; }
+
 }

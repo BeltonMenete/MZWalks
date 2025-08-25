@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MZWalks.UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9f6c4f9aeb36177f46b9202a27edfdfee266c93")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0db3fdf85fefd776b65a9a6d845dc1f9ba84d410")]
 [assembly: System.Reflection.AssemblyProductAttribute("MZWalks.UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MZWalks.UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

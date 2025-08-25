@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Console;
 using MZWalks.UI.Models.DTOs;
 
 namespace MZWalks.UI.Controllers;
@@ -42,9 +43,21 @@ public class RegionsController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> Update(UpdateRegionDto region)
+    public async Task<IActionResult> Update(RegionDto region)
     {
-        var response = await _regionService.UpdateRegionAsync(region);
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+        var updateRegion = new UpdateRegionDto()
+        {
+            Code = region.Code,
+            Name = region.Name,
+            RegionImageURL = region.RegionImageURL
+        };
+        var response = await _regionService.UpdateRegionAsync(region.Id, updateRegion);
+        Console.WriteLine(response.IsSuccessful);
+        Console.WriteLine(response.Content);
         return RedirectToAction("Index");
     }
 
