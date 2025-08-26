@@ -15,7 +15,6 @@ namespace MZWalks.Api.Controllers;
 
 [ApiController]
 [Tags("Regions")]
-[EnableCors("AllowAll")]
 public class RegionsController(IRegionRepository regionRepository) : ControllerBase
 {
     private readonly IRegionRepository _regionRepository = regionRepository;
